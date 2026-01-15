@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/services.dart' show PlatformException;
-import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:myanimelist/constants.dart';
@@ -22,7 +22,7 @@ class MalClient {
     final loginUrl = _generateLoginUrl(verifier);
 
     try {
-      final uri = await FlutterWebAuth.authenticate(url: loginUrl, callbackUrlScheme: 'javoeria.animedb');
+      final uri = await FlutterWebAuth2.authenticate(url: loginUrl, callbackUrlScheme: 'javoeria.animedb');
       final queryParams = Uri.parse(uri).queryParameters;
       // print(queryParams);
       if (queryParams['code'] == null) return null;
