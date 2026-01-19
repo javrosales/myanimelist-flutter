@@ -11,8 +11,8 @@ class RankImage extends StatelessWidget {
   final dynamic top;
   final int index;
   final ItemType type;
-  final double width = kImageWidthM;
-  final double height = kImageHeightM;
+  static const double width = kImageWidthM;
+  static const double height = kImageHeightM;
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +89,6 @@ class RankImage extends StatelessWidget {
                 ),
               );
               break;
-            default:
-              throw 'ItemType Error';
           }
         },
       ),

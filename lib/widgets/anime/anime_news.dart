@@ -14,7 +14,7 @@ class AnimeNews extends StatefulWidget {
 }
 
 class _AnimeNewsState extends State<AnimeNews> with AutomaticKeepAliveClientMixin<AnimeNews> {
-  late Future<BuiltList<Article>> _future;
+  late Future<List<Article>> _future;
 
   @override
   void initState() {
@@ -29,12 +29,12 @@ class _AnimeNewsState extends State<AnimeNews> with AutomaticKeepAliveClientMixi
       future: _future,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
-        final BuiltList<Article> articleList = snapshot.data!;
+        final List<Article> articleList = snapshot.data!;
         if (articleList.isEmpty) {
-          return ListTile(title: Text('No items found.'));
+          return const ListTile(title: Text('No items found.'));
         }
         return Scrollbar(
           child: ListView.separated(
@@ -56,7 +56,7 @@ class _AnimeNewsState extends State<AnimeNews> with AutomaticKeepAliveClientMixi
                                   height: kImageHeightS,
                                   fit: BoxFit.cover,
                                 ),
-                                SizedBox(width: 8.0),
+                                const SizedBox(width: 8.0),
                               ],
                             )
                           : Container(),
@@ -77,7 +77,7 @@ class _AnimeNewsState extends State<AnimeNews> with AutomaticKeepAliveClientMixi
                   ),
                 ),
                 onTap: () async {
-                  String url = article.url;
+                  final String url = article.url;
                   if (await canLaunchUrlString(url)) {
                     await launchUrlString(url);
                   } else {

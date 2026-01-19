@@ -76,9 +76,7 @@ class UserAnimeList extends StatelessWidget {
         itemCount: userList.length,
         itemBuilder: (context, index) {
           Map<String, dynamic> item = userList.elementAt(index);
-          String type = ['tv', 'ova', 'ona'].contains(item['node']['media_type'])
-              ? item['node']['media_type'].toString().toUpperCase()
-              : item['node']['media_type'].toString().toTitleCase();
+          String type = mediaText(item['node']['media_type'].toString());
           String watched = item['list_status']['num_episodes_watched'] == 0
               ? '-'
               : item['list_status']['num_episodes_watched'].toString();

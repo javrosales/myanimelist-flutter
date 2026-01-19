@@ -31,17 +31,17 @@ class _AnimeDialogState extends State<AnimeDialog> {
 
   @override
   Widget build(BuildContext context) {
-    String total = widget.json['total_episodes'] == 0 ? '?' : widget.json['total_episodes'].toString();
+    final String total = widget.json['total_episodes'] == 0 ? '?' : widget.json['total_episodes'].toString();
     return AlertDialog(
-      title: Text('Edit Status'),
+      title: const Text('Edit Status'),
       contentPadding: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 12.0),
       content: SingleChildScrollView(
         child: Column(
           children: <Row>[
             Row(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 44.0),
+                const Padding(
+                  padding: EdgeInsets.only(right: 44.0),
                   child: Text('Status:'),
                 ),
                 Expanded(
@@ -61,8 +61,8 @@ class _AnimeDialogState extends State<AnimeDialog> {
             ),
             Row(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 26.0),
+                const Padding(
+                  padding: EdgeInsets.only(right: 26.0),
                   child: Text('Eps Seen:'),
                 ),
                 Expanded(
@@ -74,7 +74,7 @@ class _AnimeDialogState extends State<AnimeDialog> {
                 ),
                 Text(' / $total'),
                 IconButton(
-                  icon: Icon(Icons.add_circle_rounded),
+                  icon: const Icon(Icons.add_circle_rounded),
                   onPressed: () {
                     if (_textFieldController.text.isEmpty) {
                       _textFieldController.text = '0';
@@ -87,14 +87,14 @@ class _AnimeDialogState extends State<AnimeDialog> {
             ),
             Row(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
+                const Padding(
+                  padding: EdgeInsets.only(right: 16.0),
                   child: Text('Your Score:'),
                 ),
                 Expanded(
                   child: DropdownButton<String>(
                     isExpanded: true,
-                    hint: Text('Select'),
+                    hint: const Text('Select'),
                     value: _selectedScore,
                     items: _scores.map((value) {
                       return DropdownMenuItem(value: value, child: Text(scoreText(value)));
@@ -109,11 +109,11 @@ class _AnimeDialogState extends State<AnimeDialog> {
       ),
       actions: <TextButton>[
         TextButton(
-          child: Text('CANCEL'),
+          child: const Text('CANCEL'),
           onPressed: () => Navigator.pop(context),
         ),
         TextButton(
-          child: Text('OK'),
+          child: const Text('OK'),
           onPressed: () async {
             final result = await MalClient().setStatus(
               widget.json['id'],

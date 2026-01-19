@@ -14,7 +14,7 @@ class RoleList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Divider(height: 0.0),
+        const Divider(height: 0.0),
         Padding(
           padding: kTitlePadding,
           child: Row(
@@ -23,7 +23,7 @@ class RoleList extends StatelessWidget {
               Text('Voice Acting Roles', style: Theme.of(context).textTheme.titleMedium),
               if (list.length > 50)
                 IconButton(
-                  icon: Icon(Icons.chevron_right),
+                  icon: const Icon(Icons.chevron_right),
                   tooltip: 'View all',
                   onPressed: () {
                     Navigator.push(
@@ -34,31 +34,31 @@ class RoleList extends StatelessWidget {
                       ),
                     );
                   },
-                )
+                ),
             ],
           ),
         ),
         Column(children: shortList.map((actor) => RoleItem(actor)).toList()),
-        SizedBox(height: 12.0),
+        const SizedBox(height: 12.0),
       ],
     );
   }
 }
 
 class FullRoleList extends StatelessWidget {
-  const FullRoleList(this.list);
+  const FullRoleList(this.actors);
 
-  final BuiltList<VoiceActor> list;
+  final BuiltList<VoiceActor> actors;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Voice Acting Roles')),
+      appBar: AppBar(title: const Text('Voice Acting Roles')),
       body: Scrollbar(
         child: ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
-          itemCount: list.length,
-          itemBuilder: (context, index) => RoleItem(list.elementAt(index)),
+          itemCount: actors.length,
+          itemBuilder: (context, index) => RoleItem(actors[index]),
         ),
       ),
     );
@@ -85,7 +85,7 @@ class RoleItem extends StatelessWidget {
             type: ItemType.anime,
             showTitle: false,
           ),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Expanded(child: Text(actor.anime.title)),
           Expanded(
             child: Column(
@@ -96,7 +96,7 @@ class RoleItem extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           TitleAnime(
             actor.character.malId,
             '',

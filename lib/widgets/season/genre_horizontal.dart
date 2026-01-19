@@ -4,9 +4,9 @@ import 'package:myanimelist/screens/genre_anime_screen.dart';
 import 'package:myanimelist/screens/genre_manga_screen.dart';
 
 class GenreHorizontal extends StatelessWidget {
-  const GenreHorizontal(this.genreList, {this.anime = true});
+  const GenreHorizontal(this.genres, {this.anime = true});
 
-  final BuiltList<Meta> genreList;
+  final BuiltList<Meta> genres;
   final bool anime;
 
   @override
@@ -17,9 +17,9 @@ class GenreHorizontal extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemCount: genreList.length,
+        itemCount: genres.length,
         itemBuilder: (context, index) {
-          Meta genre = genreList.elementAt(index);
+          Meta genre = genres.elementAt(index);
           return Padding(
             padding: const EdgeInsets.all(4.0),
             child: ActionChip(

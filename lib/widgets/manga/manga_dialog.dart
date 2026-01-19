@@ -33,18 +33,18 @@ class _MangaDialogState extends State<MangaDialog> {
 
   @override
   Widget build(BuildContext context) {
-    String total = widget.json['total_chapters'] == 0 ? '?' : widget.json['total_chapters'].toString();
-    String total2 = widget.json['total_volumes'] == 0 ? '?' : widget.json['total_volumes'].toString();
+    final String total = widget.json['total_chapters'] == 0 ? '?' : widget.json['total_chapters'].toString();
+    final String total2 = widget.json['total_volumes'] == 0 ? '?' : widget.json['total_volumes'].toString();
     return AlertDialog(
-      title: Text('Edit Status'),
+      title: const Text('Edit Status'),
       contentPadding: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 12.0),
       content: SingleChildScrollView(
         child: Column(
           children: <Row>[
             Row(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 44.0),
+                const Padding(
+                  padding: EdgeInsets.only(right: 44.0),
                   child: Text('Status:'),
                 ),
                 Expanded(
@@ -67,8 +67,8 @@ class _MangaDialogState extends State<MangaDialog> {
             ),
             Row(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 12.0),
+                const Padding(
+                  padding: EdgeInsets.only(right: 12.0),
                   child: Text('Chap. Read:'),
                 ),
                 Expanded(
@@ -80,7 +80,7 @@ class _MangaDialogState extends State<MangaDialog> {
                 ),
                 Text(' / $total'),
                 IconButton(
-                  icon: Icon(Icons.add_circle_rounded),
+                  icon: const Icon(Icons.add_circle_rounded),
                   onPressed: () {
                     if (_textFieldController.text.isEmpty) {
                       _textFieldController.text = '0';
@@ -93,8 +93,8 @@ class _MangaDialogState extends State<MangaDialog> {
             ),
             Row(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 25.0),
+                const Padding(
+                  padding: EdgeInsets.only(right: 25.0),
                   child: Text('Vol. Read:'),
                 ),
                 Expanded(
@@ -106,7 +106,7 @@ class _MangaDialogState extends State<MangaDialog> {
                 ),
                 Text(' / $total2'),
                 IconButton(
-                  icon: Icon(Icons.add_circle_rounded),
+                  icon: const Icon(Icons.add_circle_rounded),
                   onPressed: () {
                     if (_textFieldController2.text.isEmpty) {
                       _textFieldController2.text = '0';
@@ -119,14 +119,14 @@ class _MangaDialogState extends State<MangaDialog> {
             ),
             Row(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
+                const Padding(
+                  padding: EdgeInsets.only(right: 16.0),
                   child: Text('Your Score:'),
                 ),
                 Expanded(
                   child: DropdownButton<String>(
                     isExpanded: true,
-                    hint: Text('Select'),
+                    hint: const Text('Select'),
                     value: _selectedScore,
                     items: _scores.map((value) {
                       return DropdownMenuItem(value: value, child: Text(scoreText(value)));
@@ -141,11 +141,11 @@ class _MangaDialogState extends State<MangaDialog> {
       ),
       actions: <TextButton>[
         TextButton(
-          child: Text('CANCEL'),
+          child: const Text('CANCEL'),
           onPressed: () => Navigator.pop(context),
         ),
         TextButton(
-          child: Text('OK'),
+          child: const Text('OK'),
           onPressed: () async {
             final result = await MalClient().setStatus(
               widget.json['id'],

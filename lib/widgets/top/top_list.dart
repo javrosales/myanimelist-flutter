@@ -39,7 +39,7 @@ class _TopListState extends State<TopList> with AutomaticKeepAliveClientMixin<To
         child: Row(
           children: <Widget>[
             Image.network(top.imageUrl, width: kImageWidthS, height: kImageHeightS, fit: BoxFit.cover),
-            SizedBox(width: 8.0),
+            const SizedBox(width: 8.0),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +66,7 @@ class _TopListState extends State<TopList> with AutomaticKeepAliveClientMixin<To
                 ? Row(
                     children: <Widget>[
                       Text(top.score.toString(), style: Theme.of(context).textTheme.bodyLarge),
-                      Icon(Icons.star, color: Colors.amber),
+                      const Icon(Icons.star, color: Colors.amber),
                     ],
                   )
                 : Container(),

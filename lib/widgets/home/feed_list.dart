@@ -5,9 +5,9 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:xml/xml.dart';
 
 class FeedList extends StatelessWidget {
-  const FeedList(this.items, {this.news = true});
+  const FeedList(this.feeds, {this.news = true});
 
-  final List<XmlElement> items;
+  final List<XmlElement> feeds;
   final bool news;
 
   @override
@@ -35,7 +35,7 @@ class FeedList extends StatelessWidget {
                     ),
                   );
                 },
-              )
+              ),
             ],
           ),
         ),
@@ -45,7 +45,7 @@ class FeedList extends StatelessWidget {
           shrinkWrap: true,
           itemCount: 5,
           itemBuilder: (context, index) {
-            XmlElement item = items.elementAt(index);
+            XmlElement item = feeds.elementAt(index);
             return InkWell(
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
@@ -76,7 +76,7 @@ class FeedList extends StatelessWidget {
                 ),
               ),
               onTap: () async {
-                String url = item.getElement('link')!.innerText.trim();
+                final String url = item.getElement('link')!.innerText.trim();
                 if (await canLaunchUrlString(url)) {
                   await launchUrlString(url);
                 } else {

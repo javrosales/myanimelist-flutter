@@ -14,8 +14,8 @@ class AnimeCharactersStaff extends StatefulWidget {
 
 class _AnimeCharactersStaffState extends State<AnimeCharactersStaff>
     with AutomaticKeepAliveClientMixin<AnimeCharactersStaff> {
-  late BuiltList<CharacterMeta> characters;
-  late BuiltList<PersonMeta> staff;
+  late List<CharacterMeta> characters;
+  late List<PersonMeta> staff;
   bool loading = true;
 
   @override
@@ -34,15 +34,15 @@ class _AnimeCharactersStaffState extends State<AnimeCharactersStaff>
   Widget build(BuildContext context) {
     super.build(context);
     if (loading) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
 
     final List<dynamic> items = [];
-    items.addAll(characters.toList());
-    if (characters.isNotEmpty && staff.isNotEmpty) items.add(Divider(height: 8.0));
-    items.addAll(staff.toList());
+    items.addAll(characters);
+    if (characters.isNotEmpty && staff.isNotEmpty) items.add(const Divider(height: 8.0));
+    items.addAll(staff);
     if (items.isEmpty) {
-      return ListTile(title: Text('No items found.'));
+      return const ListTile(title: Text('No items found.'));
     }
     return Scrollbar(
       child: ListView.builder(
@@ -68,7 +68,7 @@ class _AnimeCharactersStaffState extends State<AnimeCharactersStaff>
                           height: kImageHeightS,
                           type: ItemType.characters,
                         ),
-                        SizedBox(width: 8.0),
+                        const SizedBox(width: 8.0),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,7 +98,7 @@ class _AnimeCharactersStaffState extends State<AnimeCharactersStaff>
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 8.0),
+                              const SizedBox(width: 8.0),
                               TitleAnime(
                                 actors.first.malId,
                                 '',
@@ -127,7 +127,7 @@ class _AnimeCharactersStaffState extends State<AnimeCharactersStaff>
                     height: kImageHeightS,
                     type: ItemType.people,
                   ),
-                  SizedBox(width: 8.0),
+                  const SizedBox(width: 8.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

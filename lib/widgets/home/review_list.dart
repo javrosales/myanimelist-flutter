@@ -7,7 +7,7 @@ import 'package:myanimelist/screens/review_screen.dart';
 class ReviewList extends StatelessWidget {
   const ReviewList(this.reviews);
 
-  final BuiltList<UserReview> reviews;
+  final List<UserReview> reviews;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class ReviewList extends StatelessWidget {
                     ),
                   );
                 },
-              )
+              ),
             ],
           ),
         ),

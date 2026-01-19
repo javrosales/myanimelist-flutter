@@ -6,7 +6,7 @@ import 'package:jikan_api/jikan_api.dart';
 enum ItemType { anime, manga, people, characters }
 
 const kGooglePlayId = 'com.javier.myanimelist';
-const kDefaultImage = 'https://cdn.myanimelist.net/images/questionmark_50.gif';
+const kDefaultImage = 'https://cdn.myanimelist.net/images/kaomoji_mal_white.png';
 const kDefaultPicture = 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png';
 const kSlackToken = 'T014XKJ2C31/B014XKLF2S3/jtDgfbsVzEUusc2i2mUk3o2b';
 
@@ -42,7 +42,7 @@ const kTextStyleBold = TextStyle(fontWeight: FontWeight.bold);
 const kTextStyleShadow = TextStyle(color: Colors.white, fontSize: 12.0, shadows: [Shadow(blurRadius: 3.0)]);
 
 String get kSeasonName {
-  int month = DateTime.now().month;
+  final month = DateTime.now().month;
   if (month < 4) {
     return 'Winter';
   } else if (month >= 4 && month < 7) {
@@ -111,12 +111,17 @@ String scoreText(String score) {
   }
 }
 
+String mediaText(String media) {
+  if (media == 'tv_special') return 'TV Special';
+  return ['tv', 'ova', 'ona', 'cm', 'pv'].contains(media) ? media.toUpperCase() : media.toTitleCase();
+}
+
 String episodesText(dynamic top) {
   if (top is Anime) {
-    String episodes = top.episodes == null ? '?' : top.episodes.toString();
+    final episodes = top.episodes == null ? '?' : top.episodes.toString();
     return '($episodes eps)';
   } else if (top is Manga) {
-    String volumes = top.volumes == null ? '?' : top.volumes.toString();
+    final volumes = top.volumes == null ? '?' : top.volumes.toString();
     return '($volumes vols)';
   } else {
     throw 'ItemType Error';
@@ -149,7 +154,7 @@ Widget playButton() {
 
 extension TextParsing on String {
   String toTitleCase() => this[0].toUpperCase() + substring(1).toLowerCase();
-  String formatDate({pattern = 'MMM d, yyyy'}) => DateFormat(pattern).format(DateTime.parse(this));
+  String formatDate({String pattern = 'MMM d, yyyy'}) => DateFormat(pattern).format(DateTime.parse(this));
   String formatHtml() => replaceAll('&amp;', '&')
       .replaceAll('&quot;', '"')
       .replaceAll('&#039;', "'")
@@ -162,6 +167,6 @@ extension NumberParsing on int {
   String compact() => NumberFormat.compact().format(this);
 }
 
-extension ListParsing on Iterable<Anime> {
-  BuiltList<Anime> toBuiltList() => BuiltList(this);
-}
+// extension ListParsing on Iterable<Anime> {
+//   BuiltList<Anime> toBuiltList() => BuiltList(this);
+// }

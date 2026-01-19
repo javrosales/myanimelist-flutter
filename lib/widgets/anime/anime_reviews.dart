@@ -23,7 +23,7 @@ class _AnimeReviewsState extends State<AnimeReviews> with AutomaticKeepAliveClie
       child: PagewiseListView(
         pageSize: kReviewPageSize,
         itemBuilder: _itemBuilder,
-        noItemsFoundBuilder: (context) => ListTile(title: Text('No items found.')),
+        noItemsFoundBuilder: (context) => const ListTile(title: Text('No items found.')),
         pageFuture: (pageIndex) => widget.anime
             ? jikan.getAnimeReviews(widget.id, page: pageIndex! + 1)
             : jikan.getMangaReviews(widget.id, page: pageIndex! + 1),
@@ -60,7 +60,7 @@ class _AnimeReviewsState extends State<AnimeReviews> with AutomaticKeepAliveClie
                           },
                         ),
                       ),
-                      SizedBox(width: 8.0),
+                      const SizedBox(width: 8.0),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -99,7 +99,7 @@ class _AnimeReviewsState extends State<AnimeReviews> with AutomaticKeepAliveClie
             ],
           ),
         ),
-        Divider(height: 0.0),
+        const Divider(height: 0.0),
       ],
     );
   }

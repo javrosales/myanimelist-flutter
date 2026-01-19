@@ -8,7 +8,6 @@ import 'package:myanimelist/screens/home_screen.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_my_app/rate_my_app.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slack_notifier/slack_notifier.dart';
 
 class SettingsScreen extends StatelessWidget {

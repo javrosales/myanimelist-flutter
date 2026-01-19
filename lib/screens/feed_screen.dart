@@ -26,13 +26,13 @@ class FeedScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          final List<XmlElement> items = snapshot.data!;
+          final List<XmlElement> feedList = snapshot.data!;
           return Scrollbar(
             child: ListView.separated(
               separatorBuilder: (context, index) => const Divider(height: 0.0),
-              itemCount: items.length,
+              itemCount: feedList.length,
               itemBuilder: (context, index) {
-                XmlElement item = items.elementAt(index);
+                XmlElement item = feedList.elementAt(index);
                 return InkWell(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -71,7 +71,7 @@ class FeedScreen extends StatelessWidget {
                     ),
                   ),
                   onTap: () async {
-                    String url = item.getElement('link')!.innerText.trim();
+                    final String url = item.getElement('link')!.innerText.trim();
                     if (await canLaunchUrlString(url)) {
                       await launchUrlString(url);
                     } else {

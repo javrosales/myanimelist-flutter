@@ -3,9 +3,9 @@ import 'package:myanimelist/constants.dart';
 import 'package:myanimelist/widgets/subtitle_anime.dart';
 
 class RelatedList extends StatelessWidget {
-  const RelatedList(this.list, {this.anime = true});
+  const RelatedList(this.related, {this.anime = true});
 
-  final List<dynamic> list;
+  final List<dynamic> related;
   final bool anime;
 
   @override
@@ -13,7 +13,7 @@ class RelatedList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Divider(height: 0.0),
+        const Divider(height: 0.0),
         Padding(
           padding: kTitlePadding,
           child: Text(
@@ -26,9 +26,9 @@ class RelatedList extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            itemCount: list.length,
+            itemCount: related.length,
             itemBuilder: (context, index) {
-              Map<String, dynamic> item = list.elementAt(index);
+              Map<String, dynamic> item = related.elementAt(index);
               return Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: SubtitleAnime(
@@ -42,7 +42,7 @@ class RelatedList extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(height: 12.0),
+        const SizedBox(height: 12.0),
       ],
     );
   }

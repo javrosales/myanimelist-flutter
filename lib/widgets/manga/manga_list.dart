@@ -9,33 +9,32 @@ import 'package:provider/provider.dart';
 class MangaList extends StatelessWidget {
   const MangaList(this.items);
 
-  final BuiltList<Manga> items;
+  final List<Manga> items;
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    BuiltList<Manga> mangaList = BuiltList(items.where((manga) => !manga.genres.any((i) => i.name == 'Hentai')));
     if (!Provider.of<UserData>(context).kidsGenre) {
-      mangaList = BuiltList(mangaList.where((manga) => !manga.demographics.any((i) => i.name == 'Kids')));
+      items.removeWhere((manga) => manga.demographics.any((i) => i.name == 'Kids'));
     }
     if (!Provider.of<UserData>(context).r18Genre) {
-      mangaList = BuiltList(mangaList.where((manga) => !manga.genres.any((i) => i.name == 'Erotica')));
+      items.removeWhere((manga) => manga.genres.any((i) => i.name == 'Hentai' || i.name == 'Erotica'));
     }
 
-    if (mangaList.isEmpty) {
-      return ListTile(title: Text('No items found.'));
+    if (items.isEmpty) {
+      return const ListTile(title: Text('No items found.'));
     }
     return Scrollbar(
       child: screenWidth < 992.0
           ? ListView.separated(
               separatorBuilder: (context, index) => const Divider(height: 0.0),
-              itemCount: mangaList.length,
-              itemBuilder: (context, index) => MangaInfo(mangaList.elementAt(index)),
+              itemCount: items.length,
+              itemBuilder: (context, index) => MangaInfo(items[index]),
             )
           : GridView.count(
               crossAxisCount: 2,
               childAspectRatio: (screenWidth / 2) / 400.0,
-              children: mangaList.map((i) => MangaInfo(i)).toList(),
+              children: items.map((i) => MangaInfo(i)).toList(),
             ),
     );
   }
@@ -61,13 +60,13 @@ class MangaInfo extends StatelessWidget {
             Text(manga.title, textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleMedium),
             Text('${manga.type ?? 'Unknown'} | $_authorsText | $_volumesText vols'),
             manga.genres.isNotEmpty ? GenreHorizontal(manga.genres, anime: false) : Container(),
-            SizedBox(height: 4.0),
+            const SizedBox(height: 4.0),
             SizedBox(
               height: kImageHeightXL,
               child: Row(
                 children: <Widget>[
                   Image.network(manga.imageUrl, width: kImageWidthXL, height: kImageHeightXL, fit: BoxFit.cover),
-                  SizedBox(width: 8.0),
+                  const SizedBox(width: 8.0),
                   Expanded(
                     child: Container(
                       alignment: Alignment.topLeft,
@@ -82,20 +81,20 @@ class MangaInfo extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 4.0),
+            const SizedBox(height: 4.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(_publishedText),
                 Row(
                   children: <Widget>[
-                    Icon(Icons.star_border, size: 20.0, color: Colors.grey),
+                    const Icon(Icons.star_border, size: 20.0, color: Colors.grey),
                     Text(_scoreText),
                   ],
                 ),
                 Row(
                   children: <Widget>[
-                    Icon(Icons.person_outline, size: 20.0, color: Colors.grey),
+                    const Icon(Icons.person_outline, size: 20.0, color: Colors.grey),
                     Text(manga.members!.compact()),
                   ],
                 ),

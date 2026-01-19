@@ -13,7 +13,7 @@ class FavoriteList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Divider(height: 0.0),
+        const Divider(height: 0.0),
         Padding(
           padding: kTitlePadding,
           child: Text('Favorites', style: Theme.of(context).textTheme.titleMedium),
@@ -24,7 +24,7 @@ class FavoriteList extends StatelessWidget {
             ? FavoriteSection(favorites.characters, type: ItemType.characters)
             : Container(),
         favorites.people.isNotEmpty ? FavoriteSection(favorites.people, type: ItemType.people) : Container(),
-        SizedBox(height: 12.0),
+        const SizedBox(height: 12.0),
       ],
     );
   }
@@ -35,8 +35,8 @@ class FavoriteSection extends StatelessWidget {
 
   final BuiltList<Favorite> list;
   final ItemType type;
-  final double width = kImageWidthM;
-  final double height = kImageHeightM;
+  static const double width = kImageWidthM;
+  static const double height = kImageHeightM;
 
   @override
   Widget build(BuildContext context) {

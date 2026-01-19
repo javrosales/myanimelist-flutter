@@ -19,7 +19,7 @@ class MangaStatsSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text('Manga Stats', style: Theme.of(context).textTheme.bodyLarge),
-              SizedBox(height: 4.0),
+              const SizedBox(height: 4.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <RichText>[
@@ -94,40 +94,40 @@ class MangaStatsSection extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      CircleAvatar(backgroundColor: kWatchingColor, radius: 10.0),
-                      SizedBox(width: 8.0),
+                      const CircleAvatar(backgroundColor: kWatchingColor, radius: 8.0),
+                      const SizedBox(width: 8.0),
                       Text('Reading: ${stats.reading!.decimal()}'),
                     ],
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Row(
                     children: <Widget>[
-                      CircleAvatar(backgroundColor: kCompletedColor, radius: 10.0),
-                      SizedBox(width: 8.0),
+                      const CircleAvatar(backgroundColor: kCompletedColor, radius: 8.0),
+                      const SizedBox(width: 8.0),
                       Text('Completed: ${stats.completed.decimal()}'),
                     ],
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Row(
                     children: <Widget>[
-                      CircleAvatar(backgroundColor: kOnHoldColor, radius: 10.0),
-                      SizedBox(width: 8.0),
+                      const CircleAvatar(backgroundColor: kOnHoldColor, radius: 8.0),
+                      const SizedBox(width: 8.0),
                       Text('On-Hold: ${stats.onHold.decimal()}'),
                     ],
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Row(
                     children: <Widget>[
-                      CircleAvatar(backgroundColor: kDroppedColor, radius: 10.0),
-                      SizedBox(width: 8.0),
+                      const CircleAvatar(backgroundColor: kDroppedColor, radius: 8.0),
+                      const SizedBox(width: 8.0),
                       Text('Dropped: ${stats.dropped.decimal()}'),
                     ],
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Row(
                     children: <Widget>[
-                      CircleAvatar(backgroundColor: kPlantoWatchColor, radius: 10.0),
-                      SizedBox(width: 8.0),
+                      const CircleAvatar(backgroundColor: kPlantoWatchColor, radius: 8.0),
+                      const SizedBox(width: 8.0),
                       Text('Plan to Read: ${stats.planToRead!.decimal()}'),
                     ],
                   ),
@@ -137,11 +137,11 @@ class MangaStatsSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text('Total Entries: ${stats.totalEntries.decimal()}'),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   Text('Reread: ${stats.reread!.decimal()}'),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   Text('Chapters: ${stats.chaptersRead!.decimal()}'),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   Text('Volumes: ${stats.volumesRead!.decimal()}'),
                 ],
               ),

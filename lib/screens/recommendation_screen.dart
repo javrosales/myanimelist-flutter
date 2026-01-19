@@ -20,7 +20,7 @@ class RecommendationScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          final BuiltList<UserRecommendation> recommendationList = snapshot.data!;
+          final List<UserRecommendation> recommendationList = snapshot.data!;
           return Scrollbar(
             child: ListView.separated(
               separatorBuilder: (context, index) => const Divider(height: 0.0),

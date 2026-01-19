@@ -15,7 +15,7 @@ class AnimeRecommendations extends StatefulWidget {
 
 class _AnimeRecommendationsState extends State<AnimeRecommendations>
     with AutomaticKeepAliveClientMixin<AnimeRecommendations> {
-  late Future<BuiltList<Recommendation>> _future;
+  late Future<List<Recommendation>> _future;
 
   @override
   void initState() {
@@ -30,12 +30,12 @@ class _AnimeRecommendationsState extends State<AnimeRecommendations>
       future: _future,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
-        final BuiltList<Recommendation> recommendationList = snapshot.data!;
+        final List<Recommendation> recommendationList = snapshot.data!;
         if (recommendationList.isEmpty) {
-          return ListTile(title: Text('No items found.'));
+          return const ListTile(title: Text('No items found.'));
         }
         return Scrollbar(
           child: SingleChildScrollView(

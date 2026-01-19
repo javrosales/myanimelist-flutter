@@ -31,8 +31,9 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerMenu extends StatelessWidget {
-  const DrawerMenu(this.profile);
+  const DrawerMenu(this.name, this.profile);
 
+  final String? name;
   final UserProfile? profile;
 
   @override
@@ -46,14 +47,14 @@ class DrawerMenu extends StatelessWidget {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 UserAccountsDrawerHeader(
-                  accountName: Text(profile == null ? '' : profile!.username),
+                  accountName: Text(name == null ? '' : name!),
                   accountEmail: null,
-                  currentAccountPicture: profile == null
+                  currentAccountPicture: name == null
                       ? Container()
-                      : CircleAvatar(foregroundImage: NetworkImage(profile!.imageUrl ?? kDefaultImage)),
+                      : CircleAvatar(foregroundImage: NetworkImage(profile?.imageUrl ?? kDefaultImage)),
                   decoration: const BoxDecoration(color: kMyAnimeListColor),
                 ),
-                profile == null
+                name == null
                     ? ListTile(
                         title: const Text('Login'),
                         leading: const Icon(FontAwesomeIcons.rightToBracket),
@@ -71,7 +72,7 @@ class DrawerMenu extends StatelessWidget {
                       )
                     : ExpansionTile(
                         title: const Text('User'),
-                        leading: const Icon(FontAwesomeIcons.userLarge),
+                        leading: const Icon(FontAwesomeIcons.solidUser),
                         children: <ListTile>[
                           ListTile(
                             title: const Text('Profile'),
@@ -81,7 +82,7 @@ class DrawerMenu extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => UserProfileScreen(profile!.username),
+                                  builder: (context) => UserProfileScreen(name!),
                                   settings: const RouteSettings(name: 'UserProfileScreen'),
                                 ),
                               );
@@ -95,7 +96,7 @@ class DrawerMenu extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => AnimeListScreen(profile!.username),
+                                  builder: (context) => AnimeListScreen(name!),
                                   settings: const RouteSettings(name: 'AnimeListScreen'),
                                 ),
                               );
@@ -109,7 +110,7 @@ class DrawerMenu extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => MangaListScreen(profile!.username),
+                                  builder: (context) => MangaListScreen(name!),
                                   settings: const RouteSettings(name: 'MangaListScreen'),
                                 ),
                               );
@@ -441,8 +442,8 @@ class DrawerMenu extends StatelessWidget {
                   tooltip: 'Settings',
                   onPressed: () async {
                     FirebaseAnalytics.instance.logEvent(name: 'settings');
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+                    final SharedPreferences prefs = await SharedPreferences.getInstance();
+                    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
                     Navigator.pop(context);
                     Navigator.push(
                       context,

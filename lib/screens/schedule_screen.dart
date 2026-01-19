@@ -58,7 +58,7 @@ class ScheduleList extends StatefulWidget {
 }
 
 class _ScheduleListState extends State<ScheduleList> with AutomaticKeepAliveClientMixin<ScheduleList> {
-  late Future<BuiltList<Anime>> _future;
+  late Future<List<Anime>> _future;
 
   @override
   void initState() {
@@ -76,7 +76,7 @@ class _ScheduleListState extends State<ScheduleList> with AutomaticKeepAliveClie
           return const Center(child: CircularProgressIndicator());
         }
 
-        return SeasonList(snapshot.data!.reversed.toBuiltList());
+        return SeasonList(snapshot.data!.reversed.toList());
       },
     );
   }

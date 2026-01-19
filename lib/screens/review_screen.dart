@@ -22,7 +22,7 @@ class ReviewScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          final BuiltList<UserReview> reviewList = snapshot.data!;
+          final List<UserReview> reviewList = snapshot.data!;
           return Scrollbar(
             child: ListView.separated(
               separatorBuilder: (context, index) => const Divider(height: 0.0),

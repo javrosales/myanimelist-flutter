@@ -9,7 +9,7 @@ import 'package:myanimelist/screens/manga_screen.dart';
 class UserUpdateList extends StatelessWidget {
   const UserUpdateList(this.updates);
 
-  final BuiltList<EntryUpdate> updates;
+  final List<EntryUpdate> updates;
 
   @override
   Widget build(BuildContext context) {

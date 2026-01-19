@@ -10,7 +10,7 @@ import 'package:myanimelist/widgets/anime/anime_videos.dart';
 class WatchHorizontal extends StatelessWidget {
   const WatchHorizontal(this.trailers);
 
-  final BuiltList<WatchPromo> trailers;
+  final List<WatchPromo> trailers;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class WatchHorizontal extends StatelessWidget {
                     ),
                   );
                 },
-              )
+              ),
             ],
           ),
         ),

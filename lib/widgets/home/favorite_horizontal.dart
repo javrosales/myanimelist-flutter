@@ -6,7 +6,7 @@ import 'package:myanimelist/widgets/title_anime.dart';
 class FavoriteHorizontal extends StatelessWidget {
   const FavoriteHorizontal(this.favorites);
 
-  final BuiltList<Favorite> favorites;
+  final List<Favorite> favorites;
 
   @override
   Widget build(BuildContext context) {

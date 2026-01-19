@@ -39,14 +39,14 @@ class SeasonalAnimeScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
 
-            final BuiltList<Anime> animeList = snapshot.data!;
+            final List<Anime> animeList = snapshot.data!;
             return TabBarView(
               children: <SeasonList>[
-                SeasonList(animeList.where((anime) => anime.type == 'TV').toBuiltList()),
-                SeasonList(animeList.where((anime) => anime.type == 'ONA').toBuiltList()),
-                SeasonList(animeList.where((anime) => anime.type == 'OVA').toBuiltList()),
-                SeasonList(animeList.where((anime) => anime.type == 'Movie').toBuiltList()),
-                SeasonList(animeList.where((anime) => anime.type == 'Special').toBuiltList()),
+                SeasonList(animeList.where((anime) => anime.type == 'TV').toList()),
+                SeasonList(animeList.where((anime) => anime.type == 'ONA').toList()),
+                SeasonList(animeList.where((anime) => anime.type == 'OVA').toList()),
+                SeasonList(animeList.where((anime) => anime.type == 'Movie').toList()),
+                SeasonList(animeList.where((anime) => anime.type == 'Special' || anime.type == 'TV Special').toList()),
               ],
             );
           },
@@ -55,12 +55,9 @@ class SeasonalAnimeScreen extends StatelessWidget {
     );
   }
 
-  Future<BuiltList<Anime>> getSeasonComplete() async {
+  Future<List<Anime>> getSeasonComplete() async {
     List<dynamic> response = await MalClient().getSeason(year, season.toLowerCase());
-    List<Anime> items = response.map((item) {
-      String type = ['tv', 'ova', 'ona'].contains(item['node']['media_type'])
-          ? item['node']['media_type'].toString().toUpperCase()
-          : item['node']['media_type'].toString().toTitleCase();
+    Iterable<Anime> items = response.map((item) {
       if (item['node']['main_picture'] == null) item['node']['main_picture'] = {'medium': kDefaultPicture};
       if (item['node']['start_season'] == null) item['node']['start_season'] = {'year': year, 'season': season};
       if (item['node']['start_date'].toString().split('-').length == 2) item['node']['start_date'] += '-01';
@@ -68,11 +65,11 @@ class SeasonalAnimeScreen extends StatelessWidget {
         'mal_id': item['node']['id'],
         'url': 'https://myanimelist.net/anime/${item['node']['id']}',
         'images': {
-          'jpg': {'large_image_url': item['node']['main_picture']['large'] ?? item['node']['main_picture']['medium']}
+          'jpg': {'large_image_url': item['node']['main_picture']['large'] ?? item['node']['main_picture']['medium']},
         },
         'trailer': {},
         'title': item['node']['title'],
-        'type': type,
+        'type': mediaText(item['node']['media_type'].toString()),
         'episodes': item['node']['num_episodes'] == 0 ? null : item['node']['num_episodes'],
         'airing': item['node']['status'] == 'currently_airing',
         'aired': {'string': item['node']['start_date'].toString().formatDate()},
@@ -97,8 +94,8 @@ class SeasonalAnimeScreen extends StatelessWidget {
       };
       jsonMap['demographics'] = jsonMap['genres'];
       return Anime.fromJson(jsonMap);
-    }).toList();
+    });
 
-    return BuiltList(items.where((anime) => anime.year == year));
+    return items.where((anime) => anime.year == year).toList();
   }
 }

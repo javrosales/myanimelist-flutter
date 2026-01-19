@@ -13,7 +13,7 @@ class MangaCharacters extends StatefulWidget {
 }
 
 class _MangaCharactersState extends State<MangaCharacters> with AutomaticKeepAliveClientMixin<MangaCharacters> {
-  late Future<BuiltList<CharacterMeta>> _future;
+  late Future<List<CharacterMeta>> _future;
 
   @override
   void initState() {
@@ -28,12 +28,12 @@ class _MangaCharactersState extends State<MangaCharacters> with AutomaticKeepAli
       future: _future,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
-        final BuiltList<CharacterMeta> characterList = snapshot.data!;
+        final List<CharacterMeta> characterList = snapshot.data!;
         if (characterList.isEmpty) {
-          return ListTile(title: Text('No items found.'));
+          return const ListTile(title: Text('No items found.'));
         }
         return Scrollbar(
           child: ListView.builder(
@@ -53,7 +53,7 @@ class _MangaCharactersState extends State<MangaCharacters> with AutomaticKeepAli
                       height: kImageHeightS,
                       type: ItemType.characters,
                     ),
-                    SizedBox(width: 8.0),
+                    const SizedBox(width: 8.0),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

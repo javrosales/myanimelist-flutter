@@ -11,14 +11,14 @@ class CustomFilterV2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
-      icon: Icon(Icons.filter_list),
+      icon: const Icon(Icons.filter_list),
       tooltip: 'Sort by',
       itemBuilder: (context) {
         return [
-          PopupMenuItem(value: anime ? 'anime_title' : 'manga_title', child: Text('Title')),
-          PopupMenuItem(value: 'list_score', child: Text('Score')),
-          PopupMenuItem(value: anime ? 'anime_start_date' : 'manga_start_date', child: Text('Start Date')),
-          PopupMenuItem(value: 'list_updated_at', child: Text('Last Updated')),
+          PopupMenuItem(value: anime ? 'anime_title' : 'manga_title', child: const Text('Title')),
+          const PopupMenuItem(value: 'list_score', child: Text('Score')),
+          PopupMenuItem(value: anime ? 'anime_start_date' : 'manga_start_date', child: const Text('Start Date')),
+          const PopupMenuItem(value: 'list_updated_at', child: Text('Last Updated')),
         ];
       },
       onSelected: (value) {

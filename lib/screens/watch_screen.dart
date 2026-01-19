@@ -48,7 +48,7 @@ class AnimeVideos extends StatefulWidget {
 }
 
 class _AnimeVideosState extends State<AnimeVideos> with AutomaticKeepAliveClientMixin<AnimeVideos> {
-  late Future<BuiltList<dynamic>> _future;
+  late Future<List<dynamic>> _future;
 
   @override
   void initState() {
@@ -68,7 +68,7 @@ class _AnimeVideosState extends State<AnimeVideos> with AutomaticKeepAliveClient
           return const Center(child: CircularProgressIndicator());
         }
 
-        final BuiltList<dynamic> promoList = snapshot.data!;
+        final List<dynamic> promoList = snapshot.data!;
         return Scrollbar(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -114,8 +114,8 @@ class PortraitVideo extends StatelessWidget {
   const PortraitVideo(this.promo);
 
   final dynamic promo;
-  final double width = kImageWidthL;
-  final double height = kImageHeightXL;
+  static const double width = kImageWidthL;
+  static const double height = kImageHeightXL;
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +148,7 @@ class PortraitVideo extends StatelessWidget {
           ],
         ),
         onTap: () async {
-          String url = promo is WatchPromo ? promo.videoUrl : promo.episodes[0].url;
+          final String url = promo is WatchPromo ? promo.videoUrl : promo.episodes[0].url;
           if (await canLaunchUrlString(url)) {
             await launchUrlString(url);
           } else {

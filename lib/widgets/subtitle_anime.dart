@@ -13,8 +13,8 @@ class SubtitleAnime extends StatelessWidget {
   final String subtitle;
   final String image;
   final ItemType type;
-  final double width = kImageWidthM;
-  final double height = kImageHeightM;
+  static const double width = kImageWidthM;
+  static const double height = kImageHeightM;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class SubtitleAnime extends StatelessWidget {
       height: height,
       fit: BoxFit.cover,
       child: InkWell(
-        child: title != ''
+        child: title.isNotEmpty
             ? Stack(
                 alignment: AlignmentDirectional.bottomCenter,
                 children: <Widget>[
@@ -90,8 +90,6 @@ class SubtitleAnime extends StatelessWidget {
                 ),
               );
               break;
-            default:
-              throw 'ItemType Error';
           }
         },
       ),

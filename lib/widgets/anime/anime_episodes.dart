@@ -33,7 +33,7 @@ class _AnimeEpisodesState extends State<AnimeEpisodes> with AutomaticKeepAliveCl
       child: PagewiseListView(
         pageSize: kEpisodePageSize,
         itemBuilder: _itemBuilder,
-        noItemsFoundBuilder: (context) => ListTile(title: Text('No items found.')),
+        noItemsFoundBuilder: (context) => const ListTile(title: Text('No items found.')),
         pageFuture: (pageIndex) => jikan.getAnimeEpisodes(widget.id, page: pageIndex! + 1),
       ),
     );
@@ -51,13 +51,13 @@ class _AnimeEpisodesState extends State<AnimeEpisodes> with AutomaticKeepAliveCl
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text((episode.score! * 2).toString(), style: Theme.of(context).textTheme.bodyLarge),
-                    Icon(Icons.star, color: Colors.amber),
+                    const Icon(Icons.star, color: Colors.amber),
                   ],
                 )
               : null,
           dense: true,
           onTap: () async {
-            String? url = episode.url;
+            final String? url = episode.url;
             if (url != null && await canLaunchUrlString(url)) {
               await launchUrlString(url);
             } else {
@@ -65,7 +65,7 @@ class _AnimeEpisodesState extends State<AnimeEpisodes> with AutomaticKeepAliveCl
             }
           },
         ),
-        Divider(height: 0.0),
+        const Divider(height: 0.0),
       ],
     );
   }

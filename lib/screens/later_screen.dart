@@ -34,15 +34,15 @@ class LaterScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
 
-            final BuiltList<Anime> animeList = snapshot.data!;
+            final List<Anime> animeList = snapshot.data!;
             return TabBarView(
               children: <SeasonList>[
-                SeasonList(animeList.where((anime) => anime.type == 'TV').toBuiltList()),
-                SeasonList(animeList.where((anime) => anime.type == 'ONA').toBuiltList()),
-                SeasonList(animeList.where((anime) => anime.type == 'OVA').toBuiltList()),
-                SeasonList(animeList.where((anime) => anime.type == 'Movie').toBuiltList()),
-                SeasonList(animeList.where((anime) => anime.type == 'Special').toBuiltList()),
-                SeasonList(animeList.where((anime) => anime.type == null).toBuiltList()),
+                SeasonList(animeList.where((anime) => anime.type == 'TV').toList()),
+                SeasonList(animeList.where((anime) => anime.type == 'ONA').toList()),
+                SeasonList(animeList.where((anime) => anime.type == 'OVA').toList()),
+                SeasonList(animeList.where((anime) => anime.type == 'Movie').toList()),
+                SeasonList(animeList.where((anime) => anime.type == 'Special' || anime.type == 'TV Special').toList()),
+                SeasonList(animeList.where((anime) => anime.type == null).toList()),
               ],
             );
           },
@@ -51,8 +51,8 @@ class LaterScreen extends StatelessWidget {
     );
   }
 
-  Future<BuiltList<Anime>> getSeasonComplete() async {
-    BuiltList<Anime> response = BuiltList();
+  Future<List<Anime>> getSeasonComplete() async {
+    List<Anime> response = [];
     int page = 0;
     while (page < 4 && response.length == page * 25) {
       response += await jikan.getSeasonUpcoming(page: page + 1);

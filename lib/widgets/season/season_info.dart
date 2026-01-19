@@ -24,13 +24,13 @@ class SeasonInfo extends StatelessWidget {
             Text(anime.title, textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleMedium),
             Text('${anime.type ?? 'Unknown'} | $_studiosText | $_episodesText eps'),
             anime.genres.isNotEmpty ? GenreHorizontal(anime.genres) : Container(),
-            SizedBox(height: 4.0),
+            const SizedBox(height: 4.0),
             SizedBox(
               height: kImageHeightXL,
               child: Row(
                 children: <Widget>[
                   Image.network(anime.imageUrl, width: kImageWidthXL, height: kImageHeightXL, fit: BoxFit.cover),
-                  SizedBox(width: 8.0),
+                  const SizedBox(width: 8.0),
                   Expanded(
                     child: Container(
                       alignment: Alignment.topLeft,
@@ -45,20 +45,20 @@ class SeasonInfo extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 4.0),
+            const SizedBox(height: 4.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(_airedText),
                 Row(
                   children: <Widget>[
-                    Icon(Icons.star_border, size: 20.0, color: Colors.grey),
+                    const Icon(Icons.star_border, size: 20.0, color: Colors.grey),
                     Text(_scoreText),
                   ],
                 ),
                 Row(
                   children: <Widget>[
-                    Icon(Icons.person_outline, size: 20.0, color: Colors.grey),
+                    const Icon(Icons.person_outline, size: 20.0, color: Colors.grey),
                     Text(anime.members!.compact()),
                   ],
                 ),

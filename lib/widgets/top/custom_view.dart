@@ -7,8 +7,8 @@ class CustomView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Provider.of<UserData>(context).gridView ? Icon(Icons.view_headline) : Icon(Icons.apps),
-      key: Key('top_view'),
+      icon: Provider.of<UserData>(context).gridView ? const Icon(Icons.view_headline) : const Icon(Icons.apps),
+      key: const Key('top_view'),
       tooltip: 'Change view',
       onPressed: () {
         FirebaseAnalytics.instance.logEvent(name: 'top_view');

@@ -4,16 +4,16 @@ import 'package:myanimelist/constants.dart';
 import 'package:myanimelist/screens/user_profile_screen.dart';
 
 class FriendList extends StatelessWidget {
-  const FriendList(this.list);
+  const FriendList(this.friends);
 
-  final BuiltList<Friend> list;
+  final List<Friend> friends;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Divider(height: 0.0),
+        const Divider(height: 0.0),
         Padding(
           padding: kTitlePadding,
           child: Text('Friends', style: Theme.of(context).textTheme.titleMedium),
@@ -23,16 +23,16 @@ class FriendList extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            itemCount: list.length,
+            itemCount: friends.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: FriendCard(list.elementAt(index)),
+                child: FriendCard(friends[index]),
               );
             },
           ),
         ),
-        SizedBox(height: 12.0),
+        const SizedBox(height: 12.0),
       ],
     );
   }
@@ -42,8 +42,8 @@ class FriendCard extends StatelessWidget {
   const FriendCard(this.friend);
 
   final Friend friend;
-  final double width = kImageWidthM;
-  final double height = kImageHeightM;
+  static const double width = kImageWidthM;
+  static const double height = kImageHeightM;
 
   @override
   Widget build(BuildContext context) {

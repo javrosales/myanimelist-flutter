@@ -29,11 +29,11 @@ class _AnimeStatsState extends State<AnimeStats> with AutomaticKeepAliveClientMi
       future: _future,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
           // print(snapshot.error);
-          return ListTile(title: Text('No items found.'));
+          return const ListTile(title: Text('No items found.'));
         }
 
         final Stats stats = snapshot.data!;
@@ -45,7 +45,7 @@ class _AnimeStatsState extends State<AnimeStats> with AutomaticKeepAliveClientMi
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text('Summary Stats', style: Theme.of(context).textTheme.titleMedium),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -68,7 +68,7 @@ class _AnimeStatsState extends State<AnimeStats> with AutomaticKeepAliveClientMi
                                 ],
                               ),
                             ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       RichText(
                         text: TextSpan(
                           text: 'Completed: ',
@@ -78,7 +78,7 @@ class _AnimeStatsState extends State<AnimeStats> with AutomaticKeepAliveClientMi
                           ],
                         ),
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       RichText(
                         text: TextSpan(
                           text: 'On-Hold: ',
@@ -88,7 +88,7 @@ class _AnimeStatsState extends State<AnimeStats> with AutomaticKeepAliveClientMi
                           ],
                         ),
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       RichText(
                         text: TextSpan(
                           text: 'Dropped: ',
@@ -98,7 +98,7 @@ class _AnimeStatsState extends State<AnimeStats> with AutomaticKeepAliveClientMi
                           ],
                         ),
                       ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       widget.anime
                           ? RichText(
                               text: TextSpan(
@@ -120,7 +120,7 @@ class _AnimeStatsState extends State<AnimeStats> with AutomaticKeepAliveClientMi
                                 ],
                               ),
                             ),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
                       RichText(
                         text: TextSpan(
                           text: 'Total: ',
@@ -135,7 +135,7 @@ class _AnimeStatsState extends State<AnimeStats> with AutomaticKeepAliveClientMi
                 ],
               ),
             ),
-            Divider(height: 0.0),
+            const Divider(height: 0.0),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -143,7 +143,7 @@ class _AnimeStatsState extends State<AnimeStats> with AutomaticKeepAliveClientMi
                 children: <Widget>[
                   Text('Score Stats', style: Theme.of(context).textTheme.titleMedium),
                   stats.scores.isEmpty
-                      ? Text('No scores have been recorded to this title.')
+                      ? const Text('No scores have been recorded to this title.')
                       : SizedBox(
                           height: 400.0,
                           child: HorizontalBarChart(stats.scores),
@@ -177,20 +177,20 @@ class HorizontalBarChart extends StatelessWidget {
       barRendererDecorator: isLight
           ? charts.BarLabelDecorator<String>()
           : charts.BarLabelDecorator<String>(
-              insideLabelStyleSpec: charts.TextStyleSpec(color: charts.MaterialPalette.white),
-              outsideLabelStyleSpec: charts.TextStyleSpec(color: charts.MaterialPalette.white),
+              insideLabelStyleSpec: const charts.TextStyleSpec(color: charts.MaterialPalette.white),
+              outsideLabelStyleSpec: const charts.TextStyleSpec(color: charts.MaterialPalette.white),
             ),
       primaryMeasureAxis: isLight
-          ? charts.NumericAxisSpec()
+          ? const charts.NumericAxisSpec()
           : charts.NumericAxisSpec(
               renderSpec: charts.GridlineRendererSpec(
-                labelStyle: charts.TextStyleSpec(color: charts.MaterialPalette.white),
+                labelStyle: const charts.TextStyleSpec(color: charts.MaterialPalette.white),
                 lineStyle: charts.LineStyleSpec(color: charts.MaterialPalette.gray.shade700),
               ),
             ),
       domainAxis: isLight
-          ? charts.OrdinalAxisSpec()
-          : charts.OrdinalAxisSpec(
+          ? const charts.OrdinalAxisSpec()
+          : const charts.OrdinalAxisSpec(
               renderSpec: charts.GridlineRendererSpec(
                 labelStyle: charts.TextStyleSpec(color: charts.MaterialPalette.white),
                 lineStyle: charts.LineStyleSpec(color: charts.MaterialPalette.transparent),
@@ -207,7 +207,7 @@ class HorizontalBarChart extends StatelessWidget {
         domainFn: (score, _) => score.score.toString(),
         measureFn: (score, _) => score.votes,
         labelAccessorFn: (score, _) => '${score.percentage}% (${score.votes} votes)',
-        seriesColor: charts.Color(r: 46, g: 81, b: 162),
+        seriesColor: const charts.Color(r: 46, g: 81, b: 162),
       ),
     ];
   }

@@ -20,7 +20,7 @@ class PersonScreen extends StatefulWidget {
 class _PersonScreenState extends State<PersonScreen> {
   late ScrollController _scrollController;
   late Person person;
-  late BuiltList<Picture> pictures;
+  late List<Picture> pictures;
   bool loading = true;
 
   @override

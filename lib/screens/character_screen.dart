@@ -20,7 +20,7 @@ class CharacterScreen extends StatefulWidget {
 class _CharacterScreenState extends State<CharacterScreen> {
   late ScrollController _scrollController;
   late Character character;
-  late BuiltList<Picture> pictures;
+  late List<Picture> pictures;
   bool loading = true;
 
   @override

@@ -10,7 +10,7 @@ import 'package:myanimelist/widgets/profile/anime_stats_section.dart';
 import 'package:myanimelist/widgets/profile/favorite_list.dart';
 import 'package:myanimelist/widgets/profile/friend_list.dart';
 import 'package:myanimelist/widgets/profile/manga_stats_section.dart';
-import 'package:page_indicator/page_indicator.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen(this.username);
@@ -22,9 +22,10 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+  final PageController _pageController = PageController();
   late ScrollController _scrollController;
   late UserProfile profile;
-  late BuiltList<Friend> friends;
+  late List<Friend> friends;
   bool loading = true;
 
   @override
@@ -227,18 +228,31 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
               SizedBox(
                 height: kExpandedHeight,
-                child: PageIndicatorContainer(
-                  length: 2,
-                  indicatorColor: Colors.grey.shade300,
-                  indicatorSelectorColor: Colors.indigo,
-                  shape: IndicatorShape.circle(size: 6.0),
-                  child: PageView(
-                    scrollDirection: Axis.horizontal,
-                    children: <Widget>[
-                      AnimeStatsSection(profile.animeStats),
-                      MangaStatsSection(profile.mangaStats),
-                    ],
-                  ),
+                child: Stack(
+                  alignment: AlignmentDirectional.bottomCenter,
+                  children: <Widget>[
+                    PageView(
+                      controller: _pageController,
+                      children: <Widget>[
+                        AnimeStatsSection(profile.animeStats),
+                        MangaStatsSection(profile.mangaStats),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: SmoothPageIndicator(
+                        controller: _pageController,
+                        count: 2,
+                        effect: const WormEffect(
+                          dotWidth: 6.0,
+                          dotHeight: 6.0,
+                          spacing: 6.0,
+                          dotColor: Colors.grey,
+                          activeDotColor: kMyAnimeListColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               _favoriteCount > 0 ? FavoriteList(profile.favorites) : Container(),

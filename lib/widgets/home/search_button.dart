@@ -70,7 +70,7 @@ class CustomSearchDelegate extends SearchDelegate {
             : jikan.searchManga(query: query, rawQuery: '&limit=10&sfw=true'),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            final BuiltList<dynamic> searchList = snapshot.data!;
+            final List<dynamic> searchList = snapshot.data!;
             _suggestions.addAll(searchList.map((search) => search.title.toString()));
           }
 
@@ -133,7 +133,7 @@ class _ResultList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String score = search.score == null ? 'N/A' : search.score.toString();
+    final String score = search.score == null ? 'N/A' : search.score.toString();
     return InkWell(
       onTap: () => searchDelegate.close(context, search),
       child: Padding(

@@ -13,7 +13,7 @@ class AnimeVideos extends StatefulWidget {
 }
 
 class _AnimeVideosState extends State<AnimeVideos> with AutomaticKeepAliveClientMixin<AnimeVideos> {
-  late Future<BuiltList<Promo>> _future;
+  late Future<List<Promo>> _future;
 
   @override
   void initState() {
@@ -28,12 +28,12 @@ class _AnimeVideosState extends State<AnimeVideos> with AutomaticKeepAliveClient
       future: _future,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
-        final BuiltList<Promo> promoList = snapshot.data!;
+        final List<Promo> promoList = snapshot.data!;
         if (promoList.isEmpty) {
-          return ListTile(title: Text('No items found.'));
+          return const ListTile(title: Text('No items found.'));
         }
         return Scrollbar(
           child: SingleChildScrollView(
@@ -73,7 +73,7 @@ class LandscapeVideo extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            SizedBox(height: 30.0),
+            const SizedBox(height: 30.0),
             playButton(),
             Stack(
               alignment: AlignmentDirectional.bottomStart,
@@ -93,7 +93,7 @@ class LandscapeVideo extends StatelessWidget {
           ],
         ),
         onTap: () async {
-          String url = promo.videoUrl;
+          final String url = promo.videoUrl;
           if (await canLaunchUrlString(url)) {
             await launchUrlString(url);
           } else {

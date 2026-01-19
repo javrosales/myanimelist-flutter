@@ -7,7 +7,7 @@ import 'package:myanimelist/screens/recommendation_screen.dart';
 class RecommendationList extends StatelessWidget {
   const RecommendationList(this.recommendations);
 
-  final BuiltList<UserRecommendation> recommendations;
+  final List<UserRecommendation> recommendations;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class RecommendationList extends StatelessWidget {
                     ),
                   );
                 },
-              )
+              ),
             ],
           ),
         ),

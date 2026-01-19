@@ -9,7 +9,7 @@ import 'package:myanimelist/widgets/title_anime.dart';
 class SeasonHorizontal extends StatelessWidget {
   const SeasonHorizontal(this.season);
 
-  final BuiltList<Anime> season;
+  final List<Anime> season;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class SeasonHorizontal extends StatelessWidget {
                     ),
                   );
                 },
-              )
+              ),
             ],
           ),
         ),

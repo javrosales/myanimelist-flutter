@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jikan_api/jikan_api.dart';
 import 'package:myanimelist/constants.dart';
 import 'package:myanimelist/oauth.dart';
@@ -31,25 +32,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool loading = true;
   int currentPageIndex = 0;
+  bool loading = true;
+  bool error = false;
 
   // Home Page
-  BuiltList<Anime>? season;
-  BuiltList<WatchPromo>? trailers;
+  List<Anime>? season;
+  List<WatchPromo>? trailers;
   List<XmlElement>? news;
   UserProfile? profile;
   List<dynamic>? suggestions;
 
   // Trending Page
-  BuiltList<Anime>? topAiring;
-  BuiltList<Anime>? topUpcoming;
-  BuiltList<Anime>? mostPopular;
+  List<Anime>? topAiring;
+  List<Anime>? topUpcoming;
+  List<Anime>? mostPopular;
 
   // Feed Page
   List<XmlElement>? articles;
-  BuiltList<UserReview>? reviews;
-  BuiltList<UserRecommendation>? recommendations;
+  List<UserReview>? reviews;
+  List<UserRecommendation>? recommendations;
 
   @override
   void initState() {
@@ -65,43 +67,53 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       currentPageIndex = index;
       loading = true;
+      error = false;
     });
 
     final Trace mainTrace = FirebasePerformance.instance.newTrace('main_trace_$index');
     mainTrace.start();
-    if (index == 0) {
-      season ??= await jikan.getSeason();
-      trailers ??= await jikan.getWatchPromos();
-      news ??= await getXmlData('news');
-      if (widget.username != null) {
-        profile ??= await jikan.getUserProfile(widget.username!);
-        suggestions ??= await MalClient().getSuggestions();
+    try {
+      if (index == 0) {
+        season ??= await jikan.getSeason();
+        trailers ??= await jikan.getWatchPromos();
+        news ??= await getXmlData('news');
+        if (widget.username != null) {
+          profile ??= await jikan.getUserProfile(widget.username!);
+          suggestions ??= await MalClient().getSuggestions();
+        }
+      } else if (index == 1) {
+        topAiring ??= await jikan.getTopAnime(filter: TopFilter.airing);
+        topUpcoming ??= await jikan.getTopAnime(filter: TopFilter.upcoming);
+        mostPopular ??= await jikan.getTopAnime(filter: TopFilter.bypopularity);
+      } else {
+        articles ??= await getXmlData('featured');
+        reviews ??= await jikan.getRecentAnimeReviews();
+        recommendations ??= await jikan.getRecentAnimeRecommendations();
       }
-    } else if (index == 1) {
-      topAiring ??= await jikan.getTopAnime(filter: TopFilter.airing);
-      topUpcoming ??= await jikan.getTopAnime(filter: TopFilter.upcoming);
-      mostPopular ??= await jikan.getTopAnime(filter: TopFilter.bypopularity);
-    } else {
-      articles ??= await getXmlData('featured');
-      reviews ??= await jikan.getRecentAnimeReviews();
-      recommendations ??= await jikan.getRecentAnimeRecommendations();
+    } catch (e) {
+      error = true;
+      Fluttertoast.showToast(msg: e.toString(), backgroundColor: kMyAnimeListColor);
+    } finally {
+      mainTrace.stop();
+      setState(() => loading = false);
     }
-    mainTrace.stop();
-    setState(() => loading = false);
   }
 
-  BuiltList<Favorite> get _profileFavorites => profile!.favorites.anime + profile!.favorites.manga;
-  BuiltList<EntryUpdate> get _profileUpdates => profile!.animeUpdates + profile!.mangaUpdates;
+  List<Favorite> get _profileFavorites => (profile!.favorites.anime + profile!.favorites.manga).toList();
+  List<EntryUpdate> get _profileUpdates => (profile!.animeUpdates + profile!.mangaUpdates).toList();
   Widget _buildBody() {
     if (loading) {
       return const Center(child: CircularProgressIndicator());
+    }
+    if (error) {
+      return Center(child: Icon(Icons.error_outline, size: 48.0, color: Theme.of(context).colorScheme.primary));
     }
 
     if (currentPageIndex == 0) {
       return ListView(
         key: const Key('home_page'),
         children: <Widget>[
-          SeasonHorizontal(season!.where((anime) => anime.year == DateTime.now().year).toBuiltList()),
+          SeasonHorizontal(season!),
           if (suggestions != null && suggestions!.isNotEmpty) SuggestionHorizontal(suggestions!),
           WatchHorizontal(trailers!),
           FeedList(news!),
@@ -157,11 +169,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: _buildBody(),
-      drawer: DrawerMenu(profile),
+      drawer: DrawerMenu(widget.username, profile),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: load,
         selectedIndex: currentPageIndex,
-        height: kImageHeightS,
+        height: kBottomNavigationBarHeight,
+        indicatorColor: Colors.transparent,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        labelPadding: EdgeInsets.zero,
         destinations: const <NavigationDestination>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home),

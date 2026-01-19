@@ -25,7 +25,7 @@ class TitleAnime extends StatelessWidget {
       height: height,
       fit: BoxFit.cover,
       child: InkWell(
-        child: title != '' && showTitle
+        child: title.isNotEmpty && showTitle
             ? Stack(
                 alignment: AlignmentDirectional.bottomCenter,
                 children: <Widget>[
@@ -80,8 +80,6 @@ class TitleAnime extends StatelessWidget {
                 ),
               );
               break;
-            default:
-              throw 'ItemType Error';
           }
         },
       ),

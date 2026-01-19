@@ -9,7 +9,7 @@ import 'package:myanimelist/widgets/title_anime.dart';
 class TopHorizontal extends StatelessWidget {
   const TopHorizontal(this.top, {required this.label});
 
-  final BuiltList<Anime> top;
+  final List<Anime> top;
   final String label;
 
   int get _labelIndex {
@@ -50,7 +50,7 @@ class TopHorizontal extends StatelessWidget {
                     ),
                   );
                 },
-              )
+              ),
             ],
           ),
         ),

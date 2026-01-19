@@ -13,7 +13,7 @@ class GenreMangaScreen extends StatefulWidget {
 }
 
 class _GenreMangaScreenState extends State<GenreMangaScreen> {
-  BuiltList<Genre> genres = BuiltList(GenreList.manga.where((i) => i.name != 'Hentai'));
+  List<Genre> genres = GenreList.manga;
   bool loading = false;
 
   @override
@@ -34,6 +34,7 @@ class _GenreMangaScreenState extends State<GenreMangaScreen> {
       return Scaffold(appBar: AppBar(title: Text('Manga Genres')), body: Center(child: CircularProgressIndicator()));
     }
 
+    genres.removeWhere((genre) => genre.name == 'Hentai');
     return Scaffold(
       appBar: AppBar(title: const Text('Manga Genres')),
       body: Scrollbar(

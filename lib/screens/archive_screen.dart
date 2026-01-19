@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class ArchiveScreen extends StatelessWidget {
   List<String> lastSeasons() {
-    int year = DateTime.now().year;
-    int month = DateTime.now().month;
-    List<String> common = ['Summer $year', 'Spring $year', 'Winter $year'];
+    final int year = DateTime.now().year;
+    final int month = DateTime.now().month;
+    final List<String> common = ['Summer $year', 'Spring $year', 'Winter $year'];
     if (month < 4) {
       return common;
     } else if (month >= 4 && month < 7) {

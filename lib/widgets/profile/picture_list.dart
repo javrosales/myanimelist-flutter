@@ -3,18 +3,19 @@ import 'package:jikan_api/jikan_api.dart';
 import 'package:myanimelist/constants.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PictureList extends StatelessWidget {
-  const PictureList(this.list);
+  const PictureList(this.pictures);
 
-  final BuiltList<Picture> list;
+  final List<Picture> pictures;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Divider(height: 0.0),
+        const Divider(height: 0.0),
         Padding(
           padding: kTitlePadding,
           child: Text('Pictures', style: Theme.of(context).textTheme.titleMedium),
@@ -24,9 +25,9 @@ class PictureList extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            itemCount: list.length,
+            itemCount: pictures.length,
             itemBuilder: (context, index) {
-              Picture picture = list.elementAt(index);
+              Picture picture = pictures.elementAt(index);
               return Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Ink.image(
@@ -40,7 +41,7 @@ class PictureList extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              ImageScreen(list.map((i) => i.largeImageUrl ?? i.imageUrl).toList(), index),
+                              ImageScreen(pictures.map((i) => i.largeImageUrl ?? i.imageUrl).toList(), index),
                           settings: const RouteSettings(name: 'ImageScreen'),
                         ),
                       );
@@ -51,7 +52,7 @@ class PictureList extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(height: 12.0),
+        const SizedBox(height: 12.0),
       ],
     );
   }
@@ -68,14 +69,12 @@ class ImageScreen extends StatefulWidget {
 }
 
 class _ImageScreenState extends State<ImageScreen> {
-  late int _currentIndex;
   late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
-    _currentIndex = widget.currentIndex;
-    _pageController = PageController(initialPage: _currentIndex);
+    _pageController = PageController(initialPage: widget.currentIndex);
   }
 
   @override
@@ -87,7 +86,7 @@ class _ImageScreenState extends State<ImageScreen> {
         alignment: AlignmentDirectional.bottomCenter,
         children: <Widget>[
           _buildPhotoViewGallery(),
-          _buildDotIndicator(),
+          if (widget.imagePaths.length > 1) _buildDotIndicator(),
         ],
       ),
     );
@@ -95,6 +94,7 @@ class _ImageScreenState extends State<ImageScreen> {
 
   Widget _buildPhotoViewGallery() {
     return PhotoViewGallery.builder(
+      pageController: _pageController,
       itemCount: widget.imagePaths.length,
       builder: (context, index) {
         return PhotoViewGalleryPageOptions(
@@ -103,27 +103,27 @@ class _ImageScreenState extends State<ImageScreen> {
           maxScale: PhotoViewComputedScale.covered,
         );
       },
-      scrollPhysics: const BouncingScrollPhysics(),
-      pageController: _pageController,
       loadingBuilder: (context, event) => const Center(child: CircularProgressIndicator()),
-      onPageChanged: (index) => setState(() => _currentIndex = index),
+      scrollPhysics: const BouncingScrollPhysics(),
     );
   }
 
   Widget _buildDotIndicator() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: widget.imagePaths.map((image) {
-        return Container(
-          width: 6.0,
-          height: 6.0,
-          margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: _currentIndex == widget.imagePaths.indexOf(image) ? Colors.indigo : Colors.grey.shade300,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SmoothPageIndicator(
+          controller: _pageController,
+          count: widget.imagePaths.length,
+          effect: const WormEffect(
+            dotWidth: 6.0,
+            dotHeight: 6.0,
+            spacing: 6.0,
+            dotColor: Colors.grey,
+            activeDotColor: kMyAnimeListColor,
           ),
-        );
-      }).toList(),
+        ),
+      ),
     );
   }
 }

@@ -7,33 +7,32 @@ import 'package:provider/provider.dart';
 class SeasonList extends StatelessWidget {
   const SeasonList(this.items);
 
-  final BuiltList<Anime> items;
+  final List<Anime> items;
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    BuiltList<Anime> animeList = BuiltList(items.where((anime) => !anime.genres.any((i) => i.name == 'Hentai')));
     if (!Provider.of<UserData>(context).kidsGenre) {
-      animeList = BuiltList(animeList.where((anime) => !anime.demographics.any((i) => i.name == 'Kids')));
+      items.removeWhere((anime) => anime.demographics.any((i) => i.name == 'Kids'));
     }
     if (!Provider.of<UserData>(context).r18Genre) {
-      animeList = BuiltList(animeList.where((anime) => !anime.genres.any((i) => i.name == 'Erotica')));
+      items.removeWhere((anime) => anime.genres.any((i) => i.name == 'Hentai' || i.name == 'Erotica'));
     }
 
-    if (animeList.isEmpty) {
-      return ListTile(title: Text('No items found.'));
+    if (items.isEmpty) {
+      return const ListTile(title: Text('No items found.'));
     }
     return Scrollbar(
       child: screenWidth < 992.0
           ? ListView.separated(
               separatorBuilder: (context, index) => const Divider(height: 0.0),
-              itemCount: animeList.length,
-              itemBuilder: (context, index) => SeasonInfo(animeList.elementAt(index)),
+              itemCount: items.length,
+              itemBuilder: (context, index) => SeasonInfo(items[index]),
             )
           : GridView.count(
               crossAxisCount: 2,
               childAspectRatio: (screenWidth / 2) / 400.0,
-              children: animeList.map((i) => SeasonInfo(i)).toList(),
+              children: items.map((i) => SeasonInfo(i)).toList(),
             ),
     );
   }

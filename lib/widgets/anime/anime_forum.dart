@@ -14,7 +14,7 @@ class AnimeForum extends StatefulWidget {
 }
 
 class _AnimeForumState extends State<AnimeForum> with AutomaticKeepAliveClientMixin<AnimeForum> {
-  late Future<BuiltList<Forum>> _future;
+  late Future<List<Forum>> _future;
 
   @override
   void initState() {
@@ -29,12 +29,12 @@ class _AnimeForumState extends State<AnimeForum> with AutomaticKeepAliveClientMi
       future: _future,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
-        final BuiltList<Forum> forumList = snapshot.data!;
+        final List<Forum> forumList = snapshot.data!;
         if (forumList.isEmpty) {
-          return ListTile(title: Text('No items found.'));
+          return const ListTile(title: Text('No items found.'));
         }
         return Scrollbar(
           child: ListView.separated(
@@ -65,7 +65,7 @@ class _AnimeForumState extends State<AnimeForum> with AutomaticKeepAliveClientMi
                   ),
                 ),
                 onTap: () async {
-                  String url = forum.url;
+                  final String url = forum.url;
                   if (await canLaunchUrlString(url)) {
                     await launchUrlString(url);
                   } else {

@@ -6,9 +6,9 @@ import 'package:myanimelist/screens/seasonal_anime_screen.dart';
 
 class CustomMenu extends StatelessWidget {
   List<String> lastSeasons() {
-    int year = DateTime.now().year;
-    int month = DateTime.now().month;
-    List<String> common = ['Later', 'Schedule', 'Archive'];
+    final int year = DateTime.now().year;
+    final int month = DateTime.now().month;
+    final List<String> common = ['Later', 'Schedule', 'Archive'];
     if (month < 4) {
       return ['Fall ${year - 1}', 'Winter $year', 'Spring $year', 'Summer $year'] + common;
     } else if (month >= 4 && month < 7) {
@@ -44,7 +44,7 @@ class CustomMenu extends StatelessWidget {
             ),
           );
         } else if (value == 'Archive') {
-          String? newValue = await Navigator.push(
+          final String? newValue = await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ArchiveScreen(),
@@ -53,7 +53,7 @@ class CustomMenu extends StatelessWidget {
             ),
           );
           if (newValue != null) {
-            List<String> values = newValue.split(' ');
+            final List<String> values = newValue.split(' ');
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -63,7 +63,7 @@ class CustomMenu extends StatelessWidget {
             );
           }
         } else {
-          List<String> values = value.split(' ');
+          final List<String> values = value.split(' ');
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
