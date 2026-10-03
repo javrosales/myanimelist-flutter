@@ -97,7 +97,7 @@ class CustomSearchDelegate extends SearchDelegate {
     Provider.of<UserData>(context, listen: false).addHistory(query);
     return Scrollbar(
       child: PagewiseListView(
-        pageSize: kDefaultPageSize,
+        pageSize: kSearchPageSize,
         itemBuilder: (context, search, _) => _ResultList(search, searchDelegate: this),
         padding: const EdgeInsets.all(12.0),
         noItemsFoundBuilder: (context) => const ListTile(title: Text('No items found.')),
@@ -154,7 +154,7 @@ class _ResultList extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '${search.type ?? 'Unknown'} ${episodesText(search)} - Scored $score',
+                    '${search.type} ${episodesText(search)} - Scored $score',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   Text(

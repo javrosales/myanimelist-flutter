@@ -11,9 +11,10 @@ const kDefaultPicture = 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-ico
 const kSlackToken = 'T014XKJ2C31/B014XKLF2S3/jtDgfbsVzEUusc2i2mUk3o2b';
 
 final jikan = Jikan(debug: kDebugMode);
-const kDefaultPageSize = 25;
+const kDefaultPageSize = 50;
 const kEpisodePageSize = 100;
 const kReviewPageSize = 20;
+const kSearchPageSize = 25;
 
 const kMyAnimeListColor = Color(0xFF2E51A2);
 const kWatchingColor = Color(0xFF2DB039);

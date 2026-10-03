@@ -49,6 +49,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
       return Scaffold(appBar: AppBar(), body: const Center(child: CircularProgressIndicator()));
     }
 
+    final String name = character.name.split(', ').reversed.join(' ');
     return Scaffold(
       body: CustomScrollView(
         controller: _scrollController,
@@ -56,7 +57,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
           SliverAppBar(
             pinned: true,
             expandedHeight: kExpandedHeight,
-            title: _showTitle ? Text(character.name) : null,
+            title: _showTitle ? Text(name) : null,
             flexibleSpace: FlexibleSpaceBar(
               background: Padding(
                 padding: kSliverAppBarPadding,
@@ -82,7 +83,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             AutoSizeText(
-                              character.name,
+                              name,
                               style: Theme.of(context).textTheme.titleLarge,
                               maxLines: 2,
                             ),

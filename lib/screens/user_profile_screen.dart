@@ -3,6 +3,7 @@ import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:jikan_api/jikan_api.dart';
 import 'package:myanimelist/constants.dart';
+import 'package:myanimelist/jikan_edge.dart';
 import 'package:myanimelist/screens/anime_list_screen.dart';
 import 'package:myanimelist/screens/manga_list_screen.dart';
 import 'package:myanimelist/widgets/profile/about_section.dart';
@@ -25,7 +26,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   final PageController _pageController = PageController();
   late ScrollController _scrollController;
   late UserProfile profile;
-  late List<Friend> friends;
+  // late List<Friend> friends;
   bool loading = true;
 
   @override
@@ -38,8 +39,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   void load() async {
     final Trace userTrace = FirebasePerformance.instance.newTrace('user_trace');
     userTrace.start();
-    profile = await jikan.getUserProfile(widget.username);
-    friends = await jikan.getUserFriends(widget.username);
+    profile = (await JikanEdge().getUserProfile(widget.username))!;
+    // friends = await jikan.getUserFriends(widget.username);
     userTrace.stop();
     setState(() => loading = false);
   }
@@ -120,7 +121,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 const Icon(Icons.access_time, size: 20.0),
                                 const SizedBox(width: 4.0),
                                 Text(
-                                  profile.lastOnline!.formatDate(pattern: 'MMM d, yy'),
+                                  profile.lastOnline!,
                                   style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ],
@@ -143,7 +144,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                       const Icon(Icons.cake, size: 20.0),
                                       const SizedBox(width: 4.0),
                                       Text(
-                                        profile.birthday!.formatDate(pattern: 'MMM d, yy'),
+                                        profile.birthday!,
                                         style: Theme.of(context).textTheme.bodyLarge,
                                       ),
                                     ],
@@ -256,7 +257,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 ),
               ),
               _favoriteCount > 0 ? FavoriteList(profile.favorites) : Container(),
-              friends.isNotEmpty ? FriendList(friends) : Container(),
+              // friends.isNotEmpty ? FriendList(friends) : Container(),
             ]),
           ),
         ],

@@ -42,7 +42,7 @@ class LaterScreen extends StatelessWidget {
                 SeasonList(animeList.where((anime) => anime.type == 'OVA').toList()),
                 SeasonList(animeList.where((anime) => anime.type == 'Movie').toList()),
                 SeasonList(animeList.where((anime) => anime.type == 'Special' || anime.type == 'TV Special').toList()),
-                SeasonList(animeList.where((anime) => anime.type == null).toList()),
+                SeasonList(animeList.where((anime) => anime.type == 'Unknown').toList()),
               ],
             );
           },
@@ -54,7 +54,7 @@ class LaterScreen extends StatelessWidget {
   Future<List<Anime>> getSeasonComplete() async {
     List<Anime> response = [];
     int page = 0;
-    while (page < 4 && response.length == page * 25) {
+    while (page < 3 && response.length == page * 50) {
       response += await jikan.getSeasonUpcoming(page: page + 1);
       page += 1;
     }

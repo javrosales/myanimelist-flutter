@@ -2,6 +2,7 @@ import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jikan_api/jikan_api.dart';
+import 'package:myanimelist/app_review.dart';
 import 'package:myanimelist/constants.dart';
 import 'package:myanimelist/oauth.dart';
 import 'package:myanimelist/widgets/anime/anime_dialog.dart';
@@ -21,7 +22,6 @@ class AnimeDetails extends StatefulWidget {
 class _AnimeDetailsState extends State<AnimeDetails> with AutomaticKeepAliveClientMixin<AnimeDetails> {
   late final Anime anime;
   late List<Picture> pictures;
-  late List<dynamic> related;
   late Map<String, dynamic> status;
   bool loading = true;
 
@@ -36,7 +36,6 @@ class _AnimeDetailsState extends State<AnimeDetails> with AutomaticKeepAliveClie
     animeTrace.start();
     anime = await jikan.getAnime(widget.id);
     pictures = await jikan.getAnimePictures(widget.id);
-    related = await MalClient().getRelated(widget.id);
     status = await MalClient().getStatus(widget.id);
     animeTrace.stop();
     setState(() => loading = false);
@@ -114,7 +113,7 @@ class _AnimeDetailsState extends State<AnimeDetails> with AutomaticKeepAliveClie
                     ),
                   ),
                   const SizedBox(height: 8.0),
-                  Text(anime.type ?? 'Unknown'),
+                  Text(anime.type),
                   premiered != null ? Text(premiered) : Container(),
                   anime.studios.isNotEmpty ? Text(anime.studios.first.name) : Container(),
                 ],
@@ -144,6 +143,7 @@ class _AnimeDetailsState extends State<AnimeDetails> with AutomaticKeepAliveClie
                         status['text'] = newStatus['status'].toString().replaceAll('_', ' ').toUpperCase();
                       });
                       Fluttertoast.showToast(msg: 'Update Successful', backgroundColor: kMyAnimeListColor);
+                      await requestReviewIfNeeded();
                     }
                   },
                 ),
@@ -197,7 +197,7 @@ class _AnimeDetailsState extends State<AnimeDetails> with AutomaticKeepAliveClie
                 text: TextSpan(
                   text: 'Type: ',
                   style: Theme.of(context).textTheme.titleSmall,
-                  children: [TextSpan(text: anime.type ?? 'Unknown', style: DefaultTextStyle.of(context).style)],
+                  children: [TextSpan(text: anime.type, style: DefaultTextStyle.of(context).style)],
                 ),
               ),
               const SizedBox(height: 4.0),
@@ -307,7 +307,7 @@ class _AnimeDetailsState extends State<AnimeDetails> with AutomaticKeepAliveClie
             ],
           ),
         ),
-        if (related.isNotEmpty) RelatedList(related),
+        if (anime.relations!.isNotEmpty) RelatedList(anime.relations!),
         PictureList(pictures),
       ],
     );

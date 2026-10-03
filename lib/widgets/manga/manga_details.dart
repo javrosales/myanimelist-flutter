@@ -2,6 +2,7 @@ import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jikan_api/jikan_api.dart';
+import 'package:myanimelist/app_review.dart';
 import 'package:myanimelist/constants.dart';
 import 'package:myanimelist/oauth.dart';
 import 'package:myanimelist/widgets/anime/related_list.dart';
@@ -21,7 +22,6 @@ class MangaDetails extends StatefulWidget {
 class _MangaDetailsState extends State<MangaDetails> with AutomaticKeepAliveClientMixin<MangaDetails> {
   late final Manga manga;
   late List<Picture> pictures;
-  late List<dynamic> related;
   late Map<String, dynamic> status;
   bool loading = true;
 
@@ -36,7 +36,6 @@ class _MangaDetailsState extends State<MangaDetails> with AutomaticKeepAliveClie
     mangaTrace.start();
     manga = await jikan.getManga(widget.id);
     pictures = await jikan.getMangaPictures(widget.id);
-    related = await MalClient().getRelated(widget.id, anime: false);
     status = await MalClient().getStatus(widget.id, anime: false);
     mangaTrace.stop();
     setState(() => loading = false);
@@ -113,7 +112,7 @@ class _MangaDetailsState extends State<MangaDetails> with AutomaticKeepAliveClie
                     ),
                   ),
                   const SizedBox(height: 8.0),
-                  Text(manga.type ?? 'Unknown'),
+                  Text(manga.type),
                   manga.serializations.isNotEmpty ? Text(manga.serializations.first.name) : Container(),
                   manga.authors.isNotEmpty ? Text(manga.authors.first.name) : Container(),
                 ],
@@ -144,6 +143,7 @@ class _MangaDetailsState extends State<MangaDetails> with AutomaticKeepAliveClie
                         status['text'] = newStatus['status'].toString().replaceAll('_', ' ').toUpperCase();
                       });
                       Fluttertoast.showToast(msg: 'Update Successful', backgroundColor: kMyAnimeListColor);
+                      await requestReviewIfNeeded();
                     }
                   },
                 ),
@@ -197,7 +197,7 @@ class _MangaDetailsState extends State<MangaDetails> with AutomaticKeepAliveClie
                 text: TextSpan(
                   text: 'Type: ',
                   style: Theme.of(context).textTheme.titleSmall,
-                  children: [TextSpan(text: manga.type ?? 'Unknown', style: DefaultTextStyle.of(context).style)],
+                  children: [TextSpan(text: manga.type, style: DefaultTextStyle.of(context).style)],
                 ),
               ),
               const SizedBox(height: 4.0),
@@ -259,7 +259,7 @@ class _MangaDetailsState extends State<MangaDetails> with AutomaticKeepAliveClie
             ],
           ),
         ),
-        if (related.isNotEmpty) RelatedList(related, anime: false),
+        if (manga.relations!.isNotEmpty) RelatedList(manga.relations!),
         PictureList(pictures),
       ],
     );

@@ -126,11 +126,11 @@ class DrawerMenu extends StatelessWidget {
                       title: const Text('Anime Search'),
                       onTap: () async {
                         FirebaseAnalytics.instance.logSelectContent(contentType: 'anime', itemId: 'search');
-                        Navigator.pop(context);
                         final Anime? selected = await showSearch<dynamic>(
                           context: context,
                           delegate: CustomSearchDelegate(type: ItemType.anime),
                         );
+                        Navigator.pop(context);
                         if (selected != null) {
                           Navigator.push(
                             context,
@@ -240,11 +240,11 @@ class DrawerMenu extends StatelessWidget {
                       title: const Text('Manga Search'),
                       onTap: () async {
                         FirebaseAnalytics.instance.logSelectContent(contentType: 'manga', itemId: 'search');
-                        Navigator.pop(context);
                         final Manga? selected = await showSearch<dynamic>(
                           context: context,
                           delegate: CustomSearchDelegate(type: ItemType.manga),
                         );
+                        Navigator.pop(context);
                         if (selected != null) {
                           Navigator.push(
                             context,
@@ -432,38 +432,41 @@ class DrawerMenu extends StatelessWidget {
             ),
           ),
           const Divider(height: 0.0),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <IconButton>[
-                IconButton(
-                  icon: const Icon(FontAwesomeIcons.gear),
-                  tooltip: 'Settings',
-                  onPressed: () async {
-                    FirebaseAnalytics.instance.logEvent(name: 'settings');
-                    final SharedPreferences prefs = await SharedPreferences.getInstance();
-                    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SettingsScreen(prefs, packageInfo),
-                        settings: const RouteSettings(name: 'SettingsScreen'),
-                      ),
-                    );
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(FontAwesomeIcons.lightbulb),
-                  tooltip: 'Theme',
-                  onPressed: () {
-                    FirebaseAnalytics.instance.logEvent(name: 'theme');
-                    Navigator.pop(context);
-                    Provider.of<UserData>(context, listen: false).toggleBrightness();
-                  },
-                ),
-              ],
+          SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <IconButton>[
+                  IconButton(
+                    icon: const Icon(FontAwesomeIcons.gear),
+                    tooltip: 'Settings',
+                    onPressed: () async {
+                      FirebaseAnalytics.instance.logEvent(name: 'settings');
+                      final SharedPreferences prefs = await SharedPreferences.getInstance();
+                      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SettingsScreen(prefs, packageInfo),
+                          settings: const RouteSettings(name: 'SettingsScreen'),
+                        ),
+                      );
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(FontAwesomeIcons.lightbulb),
+                    tooltip: 'Theme',
+                    onPressed: () {
+                      FirebaseAnalytics.instance.logEvent(name: 'theme');
+                      Navigator.pop(context);
+                      Provider.of<UserData>(context, listen: false).toggleBrightness();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ],

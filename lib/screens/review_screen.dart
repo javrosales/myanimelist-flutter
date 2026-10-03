@@ -67,17 +67,17 @@ class ReviewScreen extends StatelessWidget {
                                 width: kImageWidthS,
                                 height: kImageHeightS,
                                 fit: BoxFit.cover,
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => UserProfileScreen(review.user.username),
-                                        settings: const RouteSettings(name: 'UserProfileScreen'),
-                                      ),
-                                    );
-                                  },
-                                ),
+                                // child: InkWell(
+                                //   onTap: () {
+                                //     Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //         builder: (context) => UserProfileScreen(review.user.username),
+                                //         settings: const RouteSettings(name: 'UserProfileScreen'),
+                                //       ),
+                                //     );
+                                //   },
+                                // ),
                               ),
                               const SizedBox(width: 8.0),
                               Column(

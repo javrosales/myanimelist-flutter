@@ -221,10 +221,10 @@ packages:
     dependency: transitive
     description:
       name: desktop_webview_window
-      sha256: "57cf20d81689d5cbb1adfd0017e96b669398a669d927906073b0e42fc64111c0"
+      sha256: b6fdae2cbf9571879b1761c12f27facaf82e22d0bdc74d049907c2a09a432957
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.3"
+    version: "0.3.0"
   expandable:
     dependency: "direct main"
     description:
@@ -419,14 +419,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.4"
-  flutter_rating_bar:
-    dependency: transitive
-    description:
-      name: flutter_rating_bar
-      sha256: d2af03469eac832c591a1eba47c91ecc871fe5708e69967073c043b2d775ed93
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.1"
   flutter_test:
     dependency: transitive
     description: flutter
@@ -436,10 +428,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_web_auth_2
-      sha256: "7a63332eba61ddce6cc5acd7a4b26441fa0045ab6673ba40519a00dfaf87f2a9"
+      sha256: a7655829251ee63aae64a748f8512f36670d8eba4657b0055cdf5ef304a9d164
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0"
+    version: "5.1.0"
   flutter_web_auth_2_platform_interface:
     dependency: transitive
     description:
@@ -538,6 +530,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.7.2"
+  in_app_review:
+    dependency: "direct main"
+    description:
+      name: in_app_review
+      sha256: "364db0c160b37fe7fad9cdaa18f968473924b17368869010af902760421b6bf8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.12"
+  in_app_review_platform_interface:
+    dependency: transitive
+    description:
+      name: in_app_review_platform_interface
+      sha256: fed2c755f2125caa9ae10495a3c163aa7fab5af3585a9c62ef4a6920c5b45f10
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   intl:
     dependency: "direct main"
     description:
@@ -558,10 +566,10 @@ packages:
     dependency: "direct main"
     description:
       name: jikan_api
-      sha256: "1f08d8db23f0378d9fdd0929b2741a7abe3c6ed6ad67039690c253aa59eee6ce"
+      sha256: f7ed0640ac090b1b5d30ad2dcdabbcc9859f0049bba093276bb2ce868ff6c610
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "3.0.0"
   js:
     dependency: transitive
     description:
@@ -834,14 +842,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  rate_my_app:
-    dependency: "direct main"
-    description:
-      name: rate_my_app
-      sha256: aeb400808f99aba7e8b853b911915bca10308aff711fa8e2d46b5f68dc383786
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.2"
   shared_preferences:
     dependency: "direct main"
     description:

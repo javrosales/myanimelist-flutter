@@ -168,7 +168,7 @@ class StaffList extends StatelessWidget {
                 child: SubtitleAnime(
                   anime.malId,
                   anime.title,
-                  anime.position!.replaceFirst('add ', ''),
+                  anime.position!,
                   anime.imageUrl,
                   type: ItemType.anime,
                 ),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jikan_api/jikan_api.dart';
 import 'package:myanimelist/constants.dart';
+import 'package:myanimelist/jikan_edge.dart';
 import 'package:myanimelist/oauth.dart';
 import 'package:myanimelist/screens/anime_screen.dart';
 import 'package:myanimelist/screens/feed_screen.dart';
@@ -75,10 +76,10 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       if (index == 0) {
         season ??= await jikan.getSeason();
-        trailers ??= await jikan.getWatchPromos();
+        trailers ??= await JikanEdge().getWatchPromos();
         news ??= await getXmlData('news');
         if (widget.username != null) {
-          profile ??= await jikan.getUserProfile(widget.username!);
+          profile ??= await JikanEdge().getUserProfile(widget.username!);
           suggestions ??= await MalClient().getSuggestions();
         }
       } else if (index == 1) {
@@ -115,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           SeasonHorizontal(season!),
           if (suggestions != null && suggestions!.isNotEmpty) SuggestionHorizontal(suggestions!),
-          WatchHorizontal(trailers!),
+          if (trailers != null && trailers!.isNotEmpty) WatchHorizontal(trailers!),
           FeedList(news!),
         ],
       );

@@ -58,7 +58,7 @@ class MangaInfo extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Text(manga.title, textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleMedium),
-            Text('${manga.type ?? 'Unknown'} | $_authorsText | $_volumesText vols'),
+            Text('${manga.type} | $_authorsText | $_volumesText vols'),
             manga.genres.isNotEmpty ? GenreHorizontal(manga.genres, anime: false) : Container(),
             const SizedBox(height: 4.0),
             SizedBox(

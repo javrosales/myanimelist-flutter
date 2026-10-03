@@ -76,7 +76,7 @@ class _ScheduleListState extends State<ScheduleList> with AutomaticKeepAliveClie
           return const Center(child: CircularProgressIndicator());
         }
 
-        return SeasonList(snapshot.data!.reversed.toList());
+        return SeasonList(snapshot.data!);
       },
     );
   }

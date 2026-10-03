@@ -60,6 +60,10 @@ class _MangaCharactersState extends State<MangaCharacters> with AutomaticKeepAli
                         children: <Text>[
                           Text(character.name),
                           Text(character.role, style: Theme.of(context).textTheme.bodySmall),
+                          Text(
+                            '${(character.favorites ?? 0).decimal()} Favorites',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
                         ],
                       ),
                     ),

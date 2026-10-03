@@ -1,13 +1,14 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:myanimelist/constants.dart';
 import 'package:myanimelist/models/user_data.dart';
 import 'package:myanimelist/oauth.dart';
 import 'package:myanimelist/screens/home_screen.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:rate_my_app/rate_my_app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slack_notifier/slack_notifier.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -98,7 +99,7 @@ class SettingsScreen extends StatelessWidget {
             subtitle: const Text('Your feedback is very important to us'),
             onTap: () {
               FirebaseAnalytics.instance.logEvent(name: 'rate');
-              RateMyApp(googlePlayIdentifier: kGooglePlayId).launchStore();
+              InAppReview.instance.openStoreListing();
             },
           ),
           ListTile(

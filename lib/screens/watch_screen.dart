@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jikan_api/jikan_api.dart';
 import 'package:myanimelist/constants.dart';
+import 'package:myanimelist/jikan_edge.dart';
 import 'package:myanimelist/screens/anime_screen.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -54,8 +55,8 @@ class _AnimeVideosState extends State<AnimeVideos> with AutomaticKeepAliveClient
   void initState() {
     super.initState();
     _future = widget.type == 'episodes'
-        ? jikan.getWatchEpisodes(popular: widget.subtype == 'popular')
-        : jikan.getWatchPromos(popular: widget.subtype == 'popular');
+        ? JikanEdge().getWatchEpisodes(popular: widget.subtype == 'popular')
+        : JikanEdge().getWatchPromos(popular: widget.subtype == 'popular');
   }
 
   @override

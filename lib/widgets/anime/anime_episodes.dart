@@ -57,8 +57,8 @@ class _AnimeEpisodesState extends State<AnimeEpisodes> with AutomaticKeepAliveCl
               : null,
           dense: true,
           onTap: () async {
-            final String? url = episode.url;
-            if (url != null && await canLaunchUrlString(url)) {
+            final String url = episode.url;
+            if (await canLaunchUrlString(url)) {
               await launchUrlString(url);
             } else {
               throw 'Could not launch $url';

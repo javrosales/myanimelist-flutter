@@ -55,6 +55,7 @@ class _AnimeNewsState extends State<AnimeNews> with AutomaticKeepAliveClientMixi
                                   width: kImageWidthS,
                                   height: kImageHeightS,
                                   fit: BoxFit.cover,
+                                  errorBuilder: (_, _, _) => const Icon(Icons.image_not_supported_outlined),
                                 ),
                                 const SizedBox(width: 8.0),
                               ],
