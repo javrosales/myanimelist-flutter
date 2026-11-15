@@ -6,6 +6,7 @@ import 'package:jikan_api/jikan_api.dart';
 import 'package:myanimelist/constants.dart';
 import 'package:myanimelist/models/user_data.dart';
 import 'package:myanimelist/oauth.dart';
+import 'package:myanimelist/screens/adapted_screen.dart';
 import 'package:myanimelist/screens/anime_list_screen.dart';
 import 'package:myanimelist/screens/anime_screen.dart';
 import 'package:myanimelist/screens/feed_screen.dart';
@@ -266,6 +267,33 @@ class DrawerMenu extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) => TopMangaScreen(),
                             settings: const RouteSettings(name: 'TopMangaScreen'),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Adapted to Anime'),
+                          Container(
+                            padding: const EdgeInsets.all(4.0),
+                            decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(4.0)),
+                            child: Text(
+                              'New',
+                              style: Theme.of(context).textTheme.labelMedium!.copyWith(color: Colors.white),
+                            ),
+                          ),
+                        ],
+                      ),
+                      onTap: () {
+                        FirebaseAnalytics.instance.logSelectContent(contentType: 'manga', itemId: 'adapted');
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AdaptedScreen(),
+                            settings: const RouteSettings(name: 'AdaptedMangaScreen'),
                           ),
                         );
                       },

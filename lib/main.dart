@@ -27,16 +27,16 @@ void main() async {
 Future<FirebaseRemoteConfig> setupRemoteConfig() async {
   final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
   remoteConfig.setConfigSettings(RemoteConfigSettings(
-    fetchTimeout: const Duration(seconds: 30),
-    minimumFetchInterval: const Duration(hours: 6),
+    fetchTimeout: const Duration(seconds: 10),
+    minimumFetchInterval: const Duration(hours: 12),
   ));
   remoteConfig.setDefaults({
-    'v4_genres': false,
-    'v4_magazines': false,
-    'v4_producers': false,
-    'v4_recommendations': false,
-    'v4_reviews': false,
-    'v4_watch': false,
+    'v4_genres': true,
+    'v4_magazines': true,
+    'v4_producers': true,
+    'v4_recommendations': true,
+    'v4_reviews': true,
+    'v4_watch': true,
   });
   await remoteConfig.fetchAndActivate();
   return remoteConfig;

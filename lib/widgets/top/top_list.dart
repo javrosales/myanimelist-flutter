@@ -45,7 +45,10 @@ class _TopListState extends State<TopList> with AutomaticKeepAliveClientMixin<To
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Text>[
                   Text('${index + 1}. ${top.title}', style: Theme.of(context).textTheme.titleSmall),
-                  Text('${top.type} ${episodesText(top)}', style: Theme.of(context).textTheme.bodySmall),
+                  Text(
+                    '${top.type ?? 'Unknown'} ${episodesText(top)}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                   Text(
                     (top is Anime ? top.aired : top.published) ?? '-',
                     style: Theme.of(context).textTheme.bodySmall,

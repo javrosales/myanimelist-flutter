@@ -566,10 +566,10 @@ packages:
     dependency: "direct main"
     description:
       name: jikan_api
-      sha256: f7ed0640ac090b1b5d30ad2dcdabbcc9859f0049bba093276bb2ce868ff6c610
+      sha256: "72cc77be37dae71bf1933f282c35a80e713e5ee30d20b30ed92342ad90d3f505"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   js:
     dependency: transitive
     description:

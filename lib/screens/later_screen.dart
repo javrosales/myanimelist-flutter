@@ -42,7 +42,7 @@ class LaterScreen extends StatelessWidget {
                 SeasonList(animeList.where((anime) => anime.type == 'OVA').toList()),
                 SeasonList(animeList.where((anime) => anime.type == 'Movie').toList()),
                 SeasonList(animeList.where((anime) => anime.type == 'Special' || anime.type == 'TV Special').toList()),
-                SeasonList(animeList.where((anime) => anime.type == 'Unknown').toList()),
+                SeasonList(animeList.where((anime) => anime.type == 'Unknown' || anime.type == null).toList()),
               ],
             );
           },

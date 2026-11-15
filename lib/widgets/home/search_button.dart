@@ -154,7 +154,7 @@ class _ResultList extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '${search.type} ${episodesText(search)} - Scored $score',
+                    '${search.type ?? 'Unknown'} ${episodesText(search)} - Scored $score',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   Text(

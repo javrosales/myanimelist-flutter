@@ -22,7 +22,7 @@ class SeasonInfo extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Text(anime.title, textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleMedium),
-            Text('${anime.type} | $_studiosText | $_episodesText eps'),
+            Text('${anime.type ?? 'Unknown'} | $_studiosText | $_episodesText eps'),
             anime.genres.isNotEmpty ? GenreHorizontal(anime.genres) : Container(),
             const SizedBox(height: 4.0),
             SizedBox(

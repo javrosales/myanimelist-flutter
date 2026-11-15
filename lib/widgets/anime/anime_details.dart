@@ -113,7 +113,7 @@ class _AnimeDetailsState extends State<AnimeDetails> with AutomaticKeepAliveClie
                     ),
                   ),
                   const SizedBox(height: 8.0),
-                  Text(anime.type),
+                  Text(anime.type ?? 'Unknown'),
                   premiered != null ? Text(premiered) : Container(),
                   anime.studios.isNotEmpty ? Text(anime.studios.first.name) : Container(),
                 ],
@@ -197,7 +197,7 @@ class _AnimeDetailsState extends State<AnimeDetails> with AutomaticKeepAliveClie
                 text: TextSpan(
                   text: 'Type: ',
                   style: Theme.of(context).textTheme.titleSmall,
-                  children: [TextSpan(text: anime.type, style: DefaultTextStyle.of(context).style)],
+                  children: [TextSpan(text: anime.type ?? 'Unknown', style: DefaultTextStyle.of(context).style)],
                 ),
               ),
               const SizedBox(height: 4.0),
@@ -221,7 +221,7 @@ class _AnimeDetailsState extends State<AnimeDetails> with AutomaticKeepAliveClie
                 text: TextSpan(
                   text: 'Aired: ',
                   style: Theme.of(context).textTheme.titleSmall,
-                  children: [TextSpan(text: anime.aired, style: DefaultTextStyle.of(context).style)],
+                  children: [TextSpan(text: anime.aired ?? 'Not available', style: DefaultTextStyle.of(context).style)],
                 ),
               ),
               const SizedBox(height: 4.0),
@@ -293,7 +293,7 @@ class _AnimeDetailsState extends State<AnimeDetails> with AutomaticKeepAliveClie
                 text: TextSpan(
                   text: 'Duration: ',
                   style: Theme.of(context).textTheme.titleSmall,
-                  children: [TextSpan(text: anime.duration, style: DefaultTextStyle.of(context).style)],
+                  children: [TextSpan(text: anime.duration ?? 'Unknown', style: DefaultTextStyle.of(context).style)],
                 ),
               ),
               const SizedBox(height: 4.0),
